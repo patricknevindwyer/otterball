@@ -24,7 +24,7 @@
 - [x] Clickable menus - works in release, and works after tabbing out in eclipse
 - [x] make Debug log non-editable
 - [x] Hide error list by default
-- [ ] Open types of *.json or *
+- [x] Open types of *.json or *
 
 # Base Parsers
 
