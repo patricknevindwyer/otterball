@@ -9,8 +9,8 @@
 
 # Buildable
 
-- [ ] Successful build
-- [ ] Build as app
+- [x] Successful build
+- [x] Build as app
 
 # Editor Window
 
