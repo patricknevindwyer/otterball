@@ -22,7 +22,7 @@
 - [x] Open/Close
 - [x] Save
 - [x] Clickable menus - works in release, and works after tabbing out in eclipse
-- [ ] make Debug log non-editable
+- [x] make Debug log non-editable
 - [ ] Hide error list by default
 - [ ] Open types of *.json or *
 
@@ -81,3 +81,5 @@
 
 - [ ] Save as
 - [ ] Install/select different theme
+- [ ] DebugShell needs to use Theme settings for Font and FontSize
+- [ ] Grow/shrink font size (readability/projector mode?)

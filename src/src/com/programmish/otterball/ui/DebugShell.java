@@ -147,21 +147,16 @@ public class DebugShell implements OBWindow, ModifyListener {
 			}
 			StyleRange style_levelMatch = new StyleRange(lineOffset + s_levelMatch, e_levelMatch - s_levelMatch, levelColor, null, SWT.NORMAL);
 			this.debugConsole.setStyleRange(style_levelMatch);
-			
-//			int s_msgMatch = m.start(4);
-//			int e_msgMatch = m.end(4);
-//			
-//			StyleRange style_msgMatch = new StyleRange(lineOffset + s_msgMatch, e_msgMatch - s_msgMatch, themeManager.getColor("keywords.foreground"), null, SWT.NORMAL);
-//			this.debugConsole.setStyleRange(style_msgMatch);
-			
+						
 		}		
 	}
 	
 	protected void addDebugMessage(final String msg) {
 		if (this.parentDisplay.getThread() == Thread.currentThread()) {
+			this.debugConsole.setEditable(true);
 			this.debugConsole.append(msg + "\n");
 			this.highlightTail();
-//			this.highlightLine(this.debugConsole.getLineCount() - 2);
+			this.debugConsole.setEditable(false);
 		}
 		else {
 			final StyledText dc = this.debugConsole;
@@ -170,9 +165,10 @@ public class DebugShell implements OBWindow, ModifyListener {
 			this.parentDisplay.asyncExec(new Runnable() {
 				
 				public void run() {
+					dc.setEditable(true);
 					dc.append(msg + "\n");
 					highlightTail();
-//					highlightLine(dc.getLineCount() - 2);
+					dc.setEditable(false);
 				}
 				
 			});
