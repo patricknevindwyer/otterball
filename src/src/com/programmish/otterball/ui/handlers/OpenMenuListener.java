@@ -40,7 +40,7 @@ public class OpenMenuListener implements SelectionListener {
 		this.types = new ArrayList<String>();
 		
 		// set our default types
-		this.addTypes("*.js", "*.json");
+		this.addTypes("*.json", "*.js", "*.*");
 		
 	}
 	
