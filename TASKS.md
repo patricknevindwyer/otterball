@@ -28,8 +28,8 @@
 
 # Base Parsers
 
-- [ ] typing / marking parser structure
-- [ ] Valid JSON typing parser
+- [x] typing / marking parser structure
+- [x] Valid JSON typing parser
 - [ ] Valid Python dump typing parser
 - [ ] typing on load
 - [ ] multiple objects per file typing
