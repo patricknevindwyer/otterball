@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 
 import com.programmish.otterball.OBCore;
-import com.programmish.otterball.ui.handlers.CivetEventDispatcher;
+import com.programmish.otterball.ui.handlers.OBEventDispatcher;
 import com.programmish.otterball.ui.handlers.NewFileListener;
 import com.programmish.otterball.ui.handlers.OpenMenuListener;
 import com.programmish.otterball.ui.handlers.SaveMenuListener;
@@ -20,7 +20,7 @@ import com.programmish.otterball.ui.handlers.SaveMenuListener;
 public class MenuManager {
 
 	private static MenuManager manager;
-	private static Logger logger = Logger.getLogger("civet." + MenuManager.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + MenuManager.class.getSimpleName());
 	
 	private MenuManager() {}
 	
@@ -160,7 +160,7 @@ public class MenuManager {
 		MenuItem jumpBraces = new MenuItem(menu, SWT.PUSH);
 		jumpBraces.setText("Jump to brace");
 		jumpBraces.setAccelerator(SWT.MOD1 | '5');
-		jumpBraces.addListener(SWT.Selection, new CivetEventDispatcher(OBEvent.BraceJump));
+		jumpBraces.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.BraceJump));
 
 	}
 	
@@ -181,7 +181,7 @@ public class MenuManager {
 		MenuItem selectAllItem = new MenuItem (submenu, SWT.PUSH);
 		selectAllItem.setText ("Select &All\tCtrl+A");
 		selectAllItem.setAccelerator (SWT.MOD1 + 'A');
-		selectAllItem.addListener(SWT.Selection, new CivetEventDispatcher(OBEvent.SelectAll));
+		selectAllItem.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectAll));
 
 	}
 	

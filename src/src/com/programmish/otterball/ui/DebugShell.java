@@ -52,7 +52,7 @@ public class DebugShell implements OBWindow, ModifyListener {
 		
 		this.parentDisplay = parentDisplay;
 		this.debugShell = new Shell(this.parentDisplay, SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE);
-		this.debugShell.setText("Civet Debug");
+		this.debugShell.setText("OtterBall Debug");
 		debugShell.setLayout(new BorderLayout(0, 0));
 			    
 		debugConsole = new StyledText(debugShell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -75,7 +75,7 @@ public class DebugShell implements OBWindow, ModifyListener {
 
 		this.debugConsole.addModifyListener(this);
 		
-		logger = Logger.getLogger("civet");
+		logger = Logger.getLogger("otterball");
 		this.appender = new DebugAppender(this);
 		logger.addAppender(this.appender);
 		
@@ -117,8 +117,6 @@ public class DebugShell implements OBWindow, ModifyListener {
 	}
 	
 	private void highlightLine(int line) {
-		//[civet.NpmDetector](main) DEBUG - Looking for npm executable at [/usr/bin/npm]
-		//[civet.DumbJavaScriptHighlighter](Thread-1) DEBUG - DumbHighlight found 1392 matches against 16470 characters in 191 milliseconds
 		int lineOffset = this.debugConsole.getOffsetAtLine(line);
 		String content = this.debugConsole.getLine(line);
 		

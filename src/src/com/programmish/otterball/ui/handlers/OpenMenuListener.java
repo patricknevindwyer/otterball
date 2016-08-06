@@ -15,13 +15,13 @@ import com.programmish.otterball.OBCore;
 /**
  * A fairly straight-forward SelectionListener. We want to intercept menu
  * events from the OpenFile menu, provide an Open File dialog, and route 
- * the results to CivetCore to handle actually opening the file. 
+ * the results to OBCore to handle actually opening the file. 
  * @author patricknevindwyer
  *
  */
 public class OpenMenuListener implements SelectionListener {
 
-	private static Logger logger = Logger.getLogger("civet." + OpenMenuListener.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + OpenMenuListener.class.getSimpleName());
 	
 	// What extensions/types are we opening?
 	private List<String> types;

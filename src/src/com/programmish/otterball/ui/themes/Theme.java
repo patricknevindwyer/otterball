@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * The Theme loader in Civet is a global singleton - whichever theme is currently loaded is used for all windows.
+ * The Theme loader in OtterBall is a global singleton - whichever theme is currently loaded is used for all windows.
  * 
  * @author patricknevindwyer
  *
@@ -23,7 +23,7 @@ public class Theme {
 	private Map<String,Color> themeColors;
 	
 	private Theme() {
-		Theme.logger = Logger.getLogger("civet." + Theme.class.getSimpleName());
+		Theme.logger = Logger.getLogger("otterball." + Theme.class.getSimpleName());
 		themeName = "dark";
 		
 		this.themeColors = new HashMap<String,Color>();

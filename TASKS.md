@@ -14,13 +14,18 @@
 
 # Editor Window
 
-- [ ] Basic editor pane
-- [ ] Styling support (colors, etc)
+- [x] Remove CIVET from menu
+- [x] Remove CIVET from loggers
+- [x] Basic editor pane
+- [x] Styling support (colors, etc)
 - [ ] Copy/Paste
 - [ ] Open/Close
 - [ ] Save
 - [ ] Save as
 - [ ] Clickable menus
+- [ ] make Debug log non-editable
+- [ ] Hide error list by default
+- [ ] Open types of *.json or *
 
 # Base Parsers
 

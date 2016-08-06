@@ -19,7 +19,7 @@ import com.programmish.otterball.ui.helper.TabToSpace;
 
 public class JSONShell extends OBEditor {
 
-	private static Logger logger = Logger.getLogger("civet." + JSONShell.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + JSONShell.class.getSimpleName());
 			
 	// text helpers/formatters
 	private StyledTextUndo undoManager;
