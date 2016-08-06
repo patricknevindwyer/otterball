@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.programmish.otterball.OBCore
+Class-Path: asm-all-4.0.jar log4j-1.2.17.jar parboiled-core-1.1.6.jar parboiled-java-1.1.6.jar swing2swt.jar swt.jar
