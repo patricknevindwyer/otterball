@@ -18,9 +18,9 @@
 - [x] Remove CIVET from loggers
 - [x] Basic editor pane
 - [x] Styling support (colors, etc)
-- [ ] Copy/Paste
-- [ ] Open/Close
-- [ ] Save
+- [x] Copy/Paste
+- [x] Open/Close
+- [x] Save
 - [ ] Save as
 - [ ] Clickable menus
 - [ ] make Debug log non-editable
