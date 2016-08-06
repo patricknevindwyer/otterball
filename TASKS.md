@@ -20,6 +20,7 @@
 - [ ] Open/Close
 - [ ] Save
 - [ ] Save as
+- [ ] Clickable menus
 
 # Base Parsers
 
