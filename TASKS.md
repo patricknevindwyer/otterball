@@ -1,7 +1,7 @@
 
 # Setup raw SWT App
 
-- [ ] Create folder
+- [x] Create folder
 - [ ] Add support libs
 - [ ] copy default app from Civet
 - [ ] Add debug window
