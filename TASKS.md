@@ -21,8 +21,7 @@
 - [x] Copy/Paste
 - [x] Open/Close
 - [x] Save
-- [ ] Save as
-- [ ] Clickable menus
+- [x] Clickable menus - works in release, and works after tabbing out in eclipse
 - [ ] make Debug log non-editable
 - [ ] Hide error list by default
 - [ ] Open types of *.json or *
@@ -76,3 +75,9 @@
 - [ ] Invalid values validator
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
+
+
+# Future
+
+- [ ] Save as
+- [ ] Install/select different theme
