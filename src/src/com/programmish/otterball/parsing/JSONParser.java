@@ -187,7 +187,6 @@ public class JSONParser implements FingerPrintingParser {
 	@Override
 	public List<TextRange> findSections(String blob) {
 		
-		System.out.println("searching:\n" + blob);
 		// we're going to search for all the newlines in the blob first,
 		// so we have some candidates. Then we walk from those, and
 		// use our rough brace counter to give us an estimate of
@@ -208,7 +207,6 @@ public class JSONParser implements FingerPrintingParser {
 		
 		int last_match = -1;
 		for (int line_idx : line_idxs) {
-			System.out.println("Checking:\n" + blob.substring(line_idx));
 			if (line_idx < last_match) {
 				continue;
 			}
@@ -220,10 +218,6 @@ public class JSONParser implements FingerPrintingParser {
 			}
 		}
 		
-		System.out.println("Found " + ranges.size() + " matches");
-		for (TextRange tr : ranges) {
-			System.out.println(blob.substring(tr.start, tr.end));
-		}
 		return ranges;
 	}
 	
