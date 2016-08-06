@@ -24,7 +24,7 @@ public class DumbJavaScriptHighlighter implements ExtendedModifyListener {
 	private StyledText editor;
 	private JSONShell jsEditor;
 	
-	private static Logger logger = Logger.getLogger("civet." + DumbJavaScriptHighlighter.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + DumbJavaScriptHighlighter.class.getSimpleName());
 	
 	Color fg_var;
 	Color fg_keywords;

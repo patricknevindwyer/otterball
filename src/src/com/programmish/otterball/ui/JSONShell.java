@@ -1,13 +1,10 @@
 package com.programmish.otterball.ui;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
-import com.programmish.otterball.ui.highlight.DumbJavaScriptHighlighter;
-import com.programmish.otterball.validation.SourceAnalysis;
 import com.programmish.otterball.ui.helper.AutoIndenter;
 import com.programmish.otterball.ui.helper.BraceMatcher;
 import com.programmish.otterball.ui.helper.CaretStatus;
@@ -16,10 +13,11 @@ import com.programmish.otterball.ui.helper.LineHighlight;
 import com.programmish.otterball.ui.helper.PairInsert;
 import com.programmish.otterball.ui.helper.StyledTextUndo;
 import com.programmish.otterball.ui.helper.TabToSpace;
+import com.programmish.otterball.ui.highlight.DumbJavaScriptHighlighter;
 
 public class JSONShell extends OBEditor {
 
-	private static Logger logger = Logger.getLogger("civet." + JSONShell.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + JSONShell.class.getSimpleName());
 			
 	// text helpers/formatters
 	private StyledTextUndo undoManager;
@@ -61,7 +59,7 @@ public class JSONShell extends OBEditor {
 	}
 	
 	protected void postOpen() {
-	
+		this.updateWithAnalysis(new ArrayList());
 	}
 	
 	public boolean preSave(String path) {

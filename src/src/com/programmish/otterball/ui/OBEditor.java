@@ -33,7 +33,7 @@ import com.programmish.otterball.ui.themes.Theme;
 
 public abstract class OBEditor implements OBWindow, ModifyListener {
 
-	protected static Logger logger = Logger.getLogger("civet." + OBEditor.class.getSimpleName());
+	protected static Logger logger = Logger.getLogger("otterball." + OBEditor.class.getSimpleName());
 	
 	// SWT components used throughout the editor
 	protected Display parentDisplay;

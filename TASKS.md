@@ -14,12 +14,17 @@
 
 # Editor Window
 
-- [ ] Basic editor pane
-- [ ] Styling support (colors, etc)
-- [ ] Copy/Paste
-- [ ] Open/Close
-- [ ] Save
-- [ ] Save as
+- [x] Remove CIVET from menu
+- [x] Remove CIVET from loggers
+- [x] Basic editor pane
+- [x] Styling support (colors, etc)
+- [x] Copy/Paste
+- [x] Open/Close
+- [x] Save
+- [x] Clickable menus - works in release, and works after tabbing out in eclipse
+- [x] make Debug log non-editable
+- [x] Hide error list by default
+- [x] Open types of *.json or *
 
 # Base Parsers
 
@@ -70,3 +75,11 @@
 - [ ] Invalid values validator
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
+
+
+# Future
+
+- [ ] Save as
+- [ ] Install/select different theme
+- [ ] DebugShell needs to use Theme settings for Font and FontSize
+- [ ] Grow/shrink font size (readability/projector mode?)

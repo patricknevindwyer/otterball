@@ -15,7 +15,7 @@ import com.programmish.otterball.ui.JSONShell;
 
 public class BraceMatcher implements CaretListener {
 
-	private static Logger logger = Logger.getLogger("civet." + BraceMatcher.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + BraceMatcher.class.getSimpleName());
 	
 	private StyledText editor;
 	private int lastCloseBraceOffset;

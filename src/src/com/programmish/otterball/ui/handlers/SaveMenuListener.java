@@ -8,7 +8,7 @@ import com.programmish.otterball.OBCore;
 import com.programmish.otterball.ui.OBEditor;
 
 public class SaveMenuListener implements SelectionListener {
-	static Logger logger = Logger.getLogger("civet." + SaveMenuListener.class.getSimpleName());
+	static Logger logger = Logger.getLogger("otterball." + SaveMenuListener.class.getSimpleName());
 	
 	public SaveMenuListener() {
 		

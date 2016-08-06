@@ -52,7 +52,7 @@ public class DebugShell implements OBWindow, ModifyListener {
 		
 		this.parentDisplay = parentDisplay;
 		this.debugShell = new Shell(this.parentDisplay, SWT.TITLE | SWT.MIN | SWT.MAX | SWT.RESIZE);
-		this.debugShell.setText("Civet Debug");
+		this.debugShell.setText("OtterBall Debug");
 		debugShell.setLayout(new BorderLayout(0, 0));
 			    
 		debugConsole = new StyledText(debugShell, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
@@ -75,7 +75,7 @@ public class DebugShell implements OBWindow, ModifyListener {
 
 		this.debugConsole.addModifyListener(this);
 		
-		logger = Logger.getLogger("civet");
+		logger = Logger.getLogger("otterball");
 		this.appender = new DebugAppender(this);
 		logger.addAppender(this.appender);
 		
@@ -117,8 +117,6 @@ public class DebugShell implements OBWindow, ModifyListener {
 	}
 	
 	private void highlightLine(int line) {
-		//[civet.NpmDetector](main) DEBUG - Looking for npm executable at [/usr/bin/npm]
-		//[civet.DumbJavaScriptHighlighter](Thread-1) DEBUG - DumbHighlight found 1392 matches against 16470 characters in 191 milliseconds
 		int lineOffset = this.debugConsole.getOffsetAtLine(line);
 		String content = this.debugConsole.getLine(line);
 		
@@ -149,21 +147,16 @@ public class DebugShell implements OBWindow, ModifyListener {
 			}
 			StyleRange style_levelMatch = new StyleRange(lineOffset + s_levelMatch, e_levelMatch - s_levelMatch, levelColor, null, SWT.NORMAL);
 			this.debugConsole.setStyleRange(style_levelMatch);
-			
-//			int s_msgMatch = m.start(4);
-//			int e_msgMatch = m.end(4);
-//			
-//			StyleRange style_msgMatch = new StyleRange(lineOffset + s_msgMatch, e_msgMatch - s_msgMatch, themeManager.getColor("keywords.foreground"), null, SWT.NORMAL);
-//			this.debugConsole.setStyleRange(style_msgMatch);
-			
+						
 		}		
 	}
 	
 	protected void addDebugMessage(final String msg) {
 		if (this.parentDisplay.getThread() == Thread.currentThread()) {
+			this.debugConsole.setEditable(true);
 			this.debugConsole.append(msg + "\n");
 			this.highlightTail();
-//			this.highlightLine(this.debugConsole.getLineCount() - 2);
+			this.debugConsole.setEditable(false);
 		}
 		else {
 			final StyledText dc = this.debugConsole;
@@ -172,9 +165,10 @@ public class DebugShell implements OBWindow, ModifyListener {
 			this.parentDisplay.asyncExec(new Runnable() {
 				
 				public void run() {
+					dc.setEditable(true);
 					dc.append(msg + "\n");
 					highlightTail();
-//					highlightLine(dc.getLineCount() - 2);
+					dc.setEditable(false);
 				}
 				
 			});

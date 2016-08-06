@@ -27,14 +27,14 @@ import com.programmish.otterball.sys.DeepFilePointer;
 public class OBCore {
 
 	// We keep a static reference to the windows so we can cleanly reference the open
-	// shells throughout Civet, without passing around a ref to CivetCore
+	// shells throughout OtterBall, without passing around a ref to OBCore
 	protected static List<OBEditor> editors = new ArrayList<OBEditor>();
 	
 	// Root display for the app
-	protected Display civetDisplay;
+	protected Display otterBallDisplay;
 	
 	// Gotta log. This is wired up to DebugShell as an appender
-	private static Logger logger = Logger.getLogger("civet." + OBCore.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + OBCore.class.getSimpleName());
 	
 	// We always keep the Debug window around - we can summon it with a keystroke if need be
 	public static OBWindow debugWindow;
@@ -44,7 +44,7 @@ public class OBCore {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		logger.info("Starting CivetCore");
+		logger.info("Starting OBCore");
 		
 		try {
 			OBCore core = new OBCore();
@@ -189,7 +189,7 @@ public class OBCore {
 	 * on the file extension. This provides a decently clean separation of the actual heuristics/open
 	 * logic and where the trigger came from to open the file.
 	 * 
-	 * @param filepath File to open in Civet
+	 * @param filepath File to open in OtterBall
 	 */
 	public static OBWindow openFile(String filepath) {
 		
@@ -245,11 +245,11 @@ public class OBCore {
 	public void start() {
 		
 		// basic bits and pieces
-		Display.setAppName("Civet");
-		this.civetDisplay = new Display();
+		Display.setAppName("OtterBall");
+		this.otterBallDisplay = new Display();
 		
 		// setup the debug
-		OBCore.debugWindow = new DebugShell(this.civetDisplay);
+		OBCore.debugWindow = new DebugShell(this.otterBallDisplay);
 
 		// construct the application menus
 		MenuManager mm = MenuManager.getManager();
@@ -261,9 +261,9 @@ public class OBCore {
 		this.envReport();
 
 		// Sleep away - the program exit is handled by a listening event on the Quit menu option
-		while (!this.civetDisplay.isDisposed()) {
-			if (!this.civetDisplay.readAndDispatch()) {
-				this.civetDisplay.sleep();
+		while (!this.otterBallDisplay.isDisposed()) {
+			if (!this.otterBallDisplay.readAndDispatch()) {
+				this.otterBallDisplay.sleep();
 			}
 		}
 	}
@@ -273,7 +273,7 @@ public class OBCore {
 	 */
 	private void envReport() {
 		
-		final Display d = this.civetDisplay;
+		final Display d = this.otterBallDisplay;
 		
 		new Thread("env-report") {
 			

@@ -8,11 +8,11 @@ import com.programmish.otterball.OBCore;
 import com.programmish.otterball.ui.OBEvent;
 import com.programmish.otterball.ui.OBWindow;
 
-public class CivetEventDispatcher implements Listener {
+public class OBEventDispatcher implements Listener {
 
 	private OBEvent event;
 	
-	public CivetEventDispatcher(OBEvent ce) {
+	public OBEventDispatcher(OBEvent ce) {
 		this.event = ce;
 	}
 	
