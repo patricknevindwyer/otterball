@@ -1,10 +1,10 @@
 
 # Setup raw SWT App
 
-- [ ] Create folder
-- [ ] Add support libs
-- [ ] copy default app from Civet
-- [ ] Add debug window
+- [x] Create folder
+- [x] Add support libs
+- [x] copy default app from Civet
+- [x] Add debug window
 
 
 # Buildable
@@ -55,6 +55,7 @@
 - [ ] To/from base64
 - [ ] excise field
 - [ ] insert field
+- [ ] Indent/Outdent/Reflow selection
 
 # Analysis
 
