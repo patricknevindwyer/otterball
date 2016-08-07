@@ -19,6 +19,7 @@ public class JSONParser_Test {
 		
 		// simple string that SHOULD have fingerprint
 		assertTrue(jp.hasFingerprint("{\"foo\": 24}"));
+		assertTrue(jp.hasFingerprint("{\"bool\": true, \"nother\": false}"));
 		
 		assertFalse(jp.hasFingerprint("{u'foo': 24}"));
 		

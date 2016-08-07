@@ -117,7 +117,7 @@ public class JSONParser implements FingerPrintingParser {
 					
 					// do a look ahead for being a boolean
 					if (c == 't') {
-						if (local.substring(pos, pos + 3) == "true") {
+						if (local.substring(pos, pos + 4).equals("true")) {
 							// ok, it's a bool, we jump
 							pos += 3;
 							continue;
@@ -125,7 +125,7 @@ public class JSONParser implements FingerPrintingParser {
 					}
 					
 					if (c == 'f') {
-						if (local.substring(pos, pos + 4) == "false") {
+						if (local.substring(pos, pos + 5).equals("false")) {
 							// woo
 							pos += 4;
 							continue;
@@ -224,26 +224,5 @@ public class JSONParser implements FingerPrintingParser {
 		
 		return ranges;
 	}
-	
-	/**
-	 * Start parsing for a JSON at the given offset, using a string
-	 * aware counting parser to see if we have a valid JSON block. If
-	 * we do, then return the offset of the end of the JSON block,
-	 * otherwise return -1
-	 * 
-	 * @param blob
-	 * @param offset
-	 * @return
-	 */
-	protected int countingParseFromOffset(String blob, int offset) {
-		int boundary = -1;
 		
-		for (int count_idx = offset; count_idx < blob.length(); count_idx++) {
-			
-			
-		}
-		return boundary;
-	}
-	
-	
 }

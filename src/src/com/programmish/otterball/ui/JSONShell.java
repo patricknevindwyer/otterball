@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Display;
 
 import com.programmish.otterball.parsing.FingerPrintingParser;
 import com.programmish.otterball.parsing.JSONParser;
+import com.programmish.otterball.parsing.SingleQuoteParser;
 import com.programmish.otterball.parsing.TextRange;
 import com.programmish.otterball.ui.helper.AutoIndenter;
 import com.programmish.otterball.ui.helper.BraceMatcher;
@@ -66,6 +67,7 @@ public class JSONShell extends OBEditor {
 		// our finger printers
 		this.fingerPrinters = new ArrayList<>();
 		this.fingerPrinters.add(new JSONParser());
+		this.fingerPrinters.add(new SingleQuoteParser());
 	}
 	
 	protected void postOpen() {
