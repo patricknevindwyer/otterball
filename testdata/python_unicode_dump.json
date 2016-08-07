@@ -1,0 +1,8 @@
+{
+    u'key': 1, 
+    u'key2': 47, 
+    u'nother': {
+        u'a': 4, 
+        u'b': [true, false, true]
+    }
+}
