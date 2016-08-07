@@ -31,9 +31,10 @@
 - [x] typing / marking parser structure
 - [x] Valid JSON typing parser
 - [ ] Valid Python dump typing parser
-- [ ] typing on load
-- [ ] multiple objects per file typing
-- [ ] extract from free text typing
+- [x] typing on load
+- [x] multiple objects per file typing
+- [x] extract from free text typing
+- [ ] Editor is saving a ton of NULL BYTES at the end of files
 
 # Extended Parsing
 

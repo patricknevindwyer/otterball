@@ -29,4 +29,10 @@ public interface FingerPrintingParser {
 	 * @return
 	 */
 	public List<TextRange> findSections(String blob);
+	
+	/**
+	 * Basic naming for the parser, so we have something human readable. 
+	 * @return
+	 */
+	public String parserName();
 }

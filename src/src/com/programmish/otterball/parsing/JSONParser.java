@@ -19,6 +19,10 @@ public class JSONParser implements FingerPrintingParser {
 		this.content = s;
 	}
 	
+	public String parserName() {
+		return "Vanilla JSON";
+	}
+	
 	/**
 	 * For our JSON parser, we're simply going to tear through with
 	 * a basic parse. Our conditions for a fingerprint:
