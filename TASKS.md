@@ -39,9 +39,19 @@
 
 # Extended Parsing
 
-- [ ] Reflow and compact syntax parsers (object generators with location info)
+- [x] Location aware JSON parser
+- [ ] JSON compact
+- [ ] JSON reflow
 - [ ] Highlight support
 
+# Doubly Extended Parsing
+
+- [ ] bareword (JS Style) JSON parser
+- [ ] Full parsers for JSON variants
+  - [ ] Python Unicode
+  - [ ] Single Quoted Strings
+  - [ ] JS Style
+  
 # Easy Edit Features
 
 - [ ] Multiple objects per file aware
