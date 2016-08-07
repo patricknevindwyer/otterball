@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,13 +24,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
-import swing2swt.layout.BorderLayout;
-
 import com.programmish.otterball.sys.FileUtils;
-import com.programmish.otterball.validation.SourceAnalysis;
 import com.programmish.otterball.ui.helper.ErrorSelector;
 import com.programmish.otterball.ui.helper.Gutter;
 import com.programmish.otterball.ui.themes.Theme;
+import com.programmish.otterball.validation.SourceAnalysis;
+
+import swing2swt.layout.BorderLayout;
 
 public abstract class OBEditor implements OBWindow, ModifyListener {
 
@@ -90,6 +91,8 @@ public abstract class OBEditor implements OBWindow, ModifyListener {
 				
 		// build the UI
 		this.layoutEditor();
+		
+		OBEditor.logger.debug("Using charset: " + Charset.defaultCharset().name());
 		
 		// open the file and display it
 		this.editor.setText(FileUtils.getFileContents(this.filepath, Charset.defaultCharset()));
@@ -275,7 +278,15 @@ public abstract class OBEditor implements OBWindow, ModifyListener {
 	public boolean isDirty() {
 		return this.isUnsaved;
 	}
-
+	
+	public List<String> getLines() {
+		List<String> lines = new ArrayList<>();
+		for (int i = 0; i < this.editor.getLineCount(); i++) {
+			lines.add(this.editor.getLine(i));
+		}
+		return lines;
+	}
+	
 	/**
 	 * Order of operations for the Saving workflow:
 	 * 
@@ -295,17 +306,14 @@ public abstract class OBEditor implements OBWindow, ModifyListener {
 		// write the contents
 		try {
 			// write the file
-			byte[] encoded = Charset.defaultCharset().encode(this.editor.getText()).array();
-			Files.write(FileSystems.getDefault().getPath(path), encoded);
+			
+			//byte[] encoded = Charset.defaultCharset().encode(this.editor.getText()).array();
+			//Files.write(FileSystems.getDefault().getPath(path), encoded);
+			Files.write(FileSystems.getDefault().getPath(path), this.getLines(), Charset.defaultCharset());
 			
 			// update the unsaved flag
 			this.isUnsaved = false;
-			
-			// we might need to update the PackageJson
-//			if ( (this.filepath == null) || !this.filepath.equals(path)) {
-//				this.packageJson = PackageJson.findForFile(path);
-//			}
-			
+						
 			// update the file path we use
 			this.filepath = path;
 			

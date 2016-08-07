@@ -28,12 +28,14 @@
 
 # Base Parsers
 
-- [ ] typing / marking parser structure
-- [ ] Valid JSON typing parser
-- [ ] Valid Python dump typing parser
-- [ ] typing on load
-- [ ] multiple objects per file typing
-- [ ] extract from free text typing
+- [x] typing / marking parser structure
+- [x] Valid JSON typing parser
+- [x] Valid Python dump typing parser (single quotes)
+- [x] unicode escaping format parser (Python)
+- [x] typing on load
+- [x] multiple objects per file typing
+- [x] extract from free text typing
+- [x] Editor is saving a ton of NULL BYTES at the end of files
 
 # Extended Parsing
 
@@ -61,6 +63,7 @@
 - [ ] excise field
 - [ ] insert field
 - [ ] Indent/Outdent/Reflow selection
+- [ ] Detect changes to underlying file
 
 # Analysis
 
@@ -83,3 +86,9 @@
 - [ ] Install/select different theme
 - [ ] DebugShell needs to use Theme settings for Font and FontSize
 - [ ] Grow/shrink font size (readability/projector mode?)
+- [ ] VCS aware (file changes out from under us)
+
+# Bugs
+
+- [ ] Single line file has no line numbers in gutter
+- [ ] Lines seem to be missing lines at end when they are new lines

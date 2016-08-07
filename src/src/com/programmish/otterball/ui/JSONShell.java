@@ -1,10 +1,16 @@
 package com.programmish.otterball.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.widgets.Display;
 
+import com.programmish.otterball.parsing.FingerPrintingParser;
+import com.programmish.otterball.parsing.JSONParser;
+import com.programmish.otterball.parsing.PythonUnicodeParser;
+import com.programmish.otterball.parsing.SingleQuoteParser;
+import com.programmish.otterball.parsing.TextRange;
 import com.programmish.otterball.ui.helper.AutoIndenter;
 import com.programmish.otterball.ui.helper.BraceMatcher;
 import com.programmish.otterball.ui.helper.CaretStatus;
@@ -28,6 +34,9 @@ public class JSONShell extends OBEditor {
 	private PairInsert pairInserter;
 	private AutoIndenter autoIndenter;
 	private BraceMatcher braceMatcher;
+	
+	// parsers
+	private List<FingerPrintingParser> fingerPrinters;
 	
 	// highlight control
 	private DumbJavaScriptHighlighter highlighter;
@@ -56,10 +65,40 @@ public class JSONShell extends OBEditor {
 		this.autoIndenter = new AutoIndenter(this.editor);
 		this.braceMatcher = new BraceMatcher(this, this.editor);
 		
+		// our finger printers
+		this.fingerPrinters = new ArrayList<>();
+		this.fingerPrinters.add(new JSONParser());
+		this.fingerPrinters.add(new SingleQuoteParser());
+		this.fingerPrinters.add(new PythonUnicodeParser());
 	}
 	
 	protected void postOpen() {
+		// this is a shim for clearing out the error table
 		this.updateWithAnalysis(new ArrayList());
+		
+		// run typing on our content
+		this.typeContents();
+	}
+	
+	protected void typeContents() {
+		
+		String rawText = this.editor.getText();
+		
+		for (FingerPrintingParser p : this.fingerPrinters) {
+			
+			List<TextRange> sections = p.findSections(rawText);
+			
+			if (sections.size() == 1) {
+				JSONShell.logger.info("fingerprint of 1 section detected: " + p.parserName());
+			}
+			else if (sections.size() > 1) {
+				JSONShell.logger.info("fingerprint of " + sections.size() + " sections detected: " + p.parserName());
+			}
+			else {
+				JSONShell.logger.info("no fingerprint detected: " + p.parserName());
+			}
+		}
+		
 	}
 	
 	public boolean preSave(String path) {
