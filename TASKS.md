@@ -30,7 +30,8 @@
 
 - [x] typing / marking parser structure
 - [x] Valid JSON typing parser
-- [ ] Valid Python dump typing parser
+- [ ] Valid Python dump typing parser (single quotes)
+- [ ] unicode escaping format parser (Python)
 - [x] typing on load
 - [x] multiple objects per file typing
 - [x] extract from free text typing
