@@ -40,7 +40,7 @@
 # Extended Parsing
 
 - [x] Location aware JSON parser
-- [ ] JSON compact
+- [x] JSON compact
 - [ ] JSON reflow
 - [ ] Highlight support
 
@@ -57,6 +57,7 @@
 - [ ] Multiple objects per file aware
 - [ ] Reflow selection/all
 - [ ] quick toggle reflow/condensed
+- [ ] Use parsers for syntax highlighting
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
@@ -113,4 +114,5 @@
 - [ ] Single line file has no line numbers in gutter
 - [ ] Lines seem to be missing lines at end when they are new lines
 - [ ] fast parsers are not decimal aware (i.e. 9 is fine, 9.1 makes them barf)
-- [ ] JSON parser doesn't check for delimiters or separators between values (aaaah damn)
+- [x] JSON parser doesn't check for delimiters or separators between values (aaaah damn)
+- [ ] Parsers are using ArrayLists, should optimize to something faster
