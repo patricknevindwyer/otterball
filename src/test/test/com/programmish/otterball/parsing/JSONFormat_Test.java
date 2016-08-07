@@ -32,7 +32,32 @@ public class JSONFormat_Test {
 		compacted = JSONFormat.compact(raw, elements);
 		assertTrue("Already compact JSON shouldn't be altered by compacting", raw.equals(compacted));
 	}
-
+	
+	@Test
+	public void testReflow() {
+		
+		// simple reflow
+		JSONParser jp = new JSONParser();
+		String raw = "{\"a\":[1,2]}";
+		List<ParsedElement> elements = jp.parse(raw);
+		
+		assertTrue("Compact JSON is parsable", elements.size() > 0);
+		
+		String reflowed = JSONFormat.reflow(raw, "\t", elements);
+		
+		assertTrue("Reflowed is longer than compact", raw.length() < reflowed.length());
+		
+		// more complex example
+		raw = "{\"a\": 1, \"b\": {\"c\": [1, 2, 3, {}]}}";
+		elements = jp.parse(raw);
+		
+		assertTrue("JSON is parsable", elements.size() > 0);
+		
+		reflowed = JSONFormat.reflow(raw, "    ", elements);
+		assertTrue("Reflowed is longer than compact", raw.length() < reflowed.length());
+		
+	}
+	
 	protected void dump(List<ParsedElement> elements) {
 		for (ParsedElement e : elements) {
 			System.out.println(e.type + "\t\t(" + e.start + "," + e.end + ")");

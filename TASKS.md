@@ -41,8 +41,7 @@
 
 - [x] Location aware JSON parser
 - [x] JSON compact
-- [ ] JSON reflow
-- [ ] Highlight support
+- [x] JSON reflow
 
 # Doubly Extended Parsing
 
@@ -57,6 +56,7 @@
 - [ ] Multiple objects per file aware
 - [ ] Reflow selection/all
 - [ ] quick toggle reflow/condensed
+- [ ] Highlight support in JSONParser and friends
 - [ ] Use parsers for syntax highlighting
 - [ ] Auto surround with matched characters
   - [ ] Double quote
@@ -101,6 +101,7 @@
 - [ ] Treat root level list as separate objects (easier parsing/hinting)
 - [ ] JSONPath analysis transforms
 - [ ] breadcrumb for JSONPath to cursor
+- [ ] Make reflow smarter about list length and adding newlines
 
 # Improved Views
 
