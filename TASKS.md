@@ -34,7 +34,7 @@
 - [x] typing on load
 - [x] multiple objects per file typing
 - [x] extract from free text typing
-- [ ] Editor is saving a ton of NULL BYTES at the end of files
+- [x] Editor is saving a ton of NULL BYTES at the end of files
 
 # Extended Parsing
 
@@ -62,6 +62,7 @@
 - [ ] excise field
 - [ ] insert field
 - [ ] Indent/Outdent/Reflow selection
+- [ ] Detect changes to underlying file
 
 # Analysis
 
@@ -84,3 +85,4 @@
 - [ ] Install/select different theme
 - [ ] DebugShell needs to use Theme settings for Font and FontSize
 - [ ] Grow/shrink font size (readability/projector mode?)
+- [ ] VCS aware (file changes out from under us)
