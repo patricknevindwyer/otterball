@@ -31,7 +31,7 @@
 - [x] typing / marking parser structure
 - [x] Valid JSON typing parser
 - [x] Valid Python dump typing parser (single quotes)
-- [ ] unicode escaping format parser (Python)
+- [x] unicode escaping format parser (Python)
 - [x] typing on load
 - [x] multiple objects per file typing
 - [x] extract from free text typing
@@ -87,3 +87,8 @@
 - [ ] DebugShell needs to use Theme settings for Font and FontSize
 - [ ] Grow/shrink font size (readability/projector mode?)
 - [ ] VCS aware (file changes out from under us)
+
+# Bugs
+
+- [ ] Single line file has no line numbers in gutter
+- [ ] Lines seem to be missing lines at end when they are new lines

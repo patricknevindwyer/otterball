@@ -183,6 +183,7 @@ public class JSONParser implements FingerPrintingParser {
 		}
 		
 	}
+	
 	/**
 	 * For our section extractor, we assume that a section of JSON
 	 * in a larger text starts at the beginning of a line (or prepended
