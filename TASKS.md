@@ -39,12 +39,14 @@
 
 # Extended Parsing
 
-- [ ] Reflow and compact syntax parsers
+- [ ] Reflow and compact syntax parsers (object generators with location info)
 - [ ] Highlight support
 
 # Easy Edit Features
 
+- [ ] Multiple objects per file aware
 - [ ] Reflow selection/all
+- [ ] quick toggle reflow/condensed
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
@@ -56,7 +58,7 @@
   - [ ] all
   - [ ] field aware
   - [ ] non-syntax based (not syntactically or semantically aware)
-- [ ] Condense
+- [ ] Condense/compact
 - [ ] Select lines by search or select
 - [ ] Keep/reject lines
 - [ ] To/from base64
@@ -67,6 +69,7 @@
 
 # Analysis
 
+- [ ] alternate view pane (analysis pane/sheet)
 - [ ] Cardinality
 - [ ] Type adherence
 - [ ] Stream analysis
@@ -74,21 +77,29 @@
 # Validation
 
 - [ ] Validator structure
-- [ ] Extended types validator
-- [ ] Invalid values validator
+- [ ] Extended types validator (python encoded, date detection)
+- [ ] Invalid values validator (geojson, topojson)
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
-
 
 # Future
 
 - [ ] Save as
-- [ ] Install/select different theme
 - [ ] DebugShell needs to use Theme settings for Font and FontSize
-- [ ] Grow/shrink font size (readability/projector mode?)
 - [ ] VCS aware (file changes out from under us)
+- [ ] Treat root level list as separate objects (easier parsing/hinting)
+- [ ] JSONPath analysis transforms
+- [ ] breadcrumb for JSONPath to cursor
+
+# Improved Views
+
+- [ ] grow/shrink font
+- [ ] improved theme management and view (select sheet)
+- [ ] Install/select different theme
+- [ ] Grow/shrink font size (readability/projector mode?)
 
 # Bugs
 
 - [ ] Single line file has no line numbers in gutter
 - [ ] Lines seem to be missing lines at end when they are new lines
+- [ ] fast parsers are not decimal aware (i.e. 9 is fine, 9.1 makes them barf)
