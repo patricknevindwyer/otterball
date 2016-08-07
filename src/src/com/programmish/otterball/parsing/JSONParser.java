@@ -249,7 +249,7 @@ public class JSONParser implements FingerPrintingParser {
 		
 		int trimDiff = blob.length() - local.length() - offset;
 		
-		int elementAdjustment = trimDiff + offset + 1;
+		int elementAdjustment = trimDiff + offset;
 		
 		// quick test for our outer marker
 		if ( !local.startsWith("{") && !local.startsWith("[")) {
@@ -331,7 +331,12 @@ public class JSONParser implements FingerPrintingParser {
 							// we also need to mark the end of this string, thankfully it's the last element
 							// on the elements list
 							elements.get(elements.size() - 1).end = pos + elementAdjustment;
-							
+
+							// make sure we're properly delimited
+							if (!this.isDelimited(braceStack, elements.subList(0, elements.size() - 1))) {
+								valid = false;
+								break;
+							}
 						}
 						else {
 							valid = false;
@@ -349,8 +354,15 @@ public class JSONParser implements FingerPrintingParser {
 					// do a look ahead for being a boolean
 					if (c == 't') {
 						if (local.substring(pos, pos + 4).equals("true")) {
+							
+							// make sure we're properly delimited
+							if (!this.isDelimited(braceStack, elements)) {
+								valid = false;
+								break;
+							}
+							
 							// add to the element list
-							elements.add(new ParsedElement(ElementType.BOOLEAN, pos, pos + 3));
+							elements.add(new ParsedElement(ElementType.BOOLEAN, pos + elementAdjustment, pos + elementAdjustment + 3));
 
 							// ok, it's a bool, we jump
 							pos += 3;
@@ -361,8 +373,15 @@ public class JSONParser implements FingerPrintingParser {
 					
 					if (c == 'f') {
 						if (local.substring(pos, pos + 5).equals("false")) {
+							
+							// make sure we're properly delimited
+							if (!this.isDelimited(braceStack, elements)) {
+								valid = false;
+								break;
+							}
+							
 							// add to the parsed elements
-							elements.add(new ParsedElement(ElementType.BOOLEAN, pos, pos + 4));
+							elements.add(new ParsedElement(ElementType.BOOLEAN, pos + elementAdjustment, pos + elementAdjustment + 4));
 							
 							// woo
 							pos += 4;
@@ -373,8 +392,15 @@ public class JSONParser implements FingerPrintingParser {
 					// check for the null string
 					if (c == 'n') {
 						if (local.substring(pos, pos + 4).equals("null")) {
+							
+							// make sure we're properly delimited
+							if (!this.isDelimited(braceStack, elements)) {
+								valid = false;
+								break;
+							}
+
 							// add to the element list
-							elements.add(new ParsedElement(ElementType.NULL, pos, pos + 3));
+							elements.add(new ParsedElement(ElementType.NULL, pos + elementAdjustment, pos + elementAdjustment + 3));
 							
 							// ok, it's the null string, we jump
 							pos += 3;
@@ -392,10 +418,25 @@ public class JSONParser implements FingerPrintingParser {
 							
 							// we're starting a collection. what is it?
 							if (c == '{') {
-								elements.add(new ParsedElement(ElementType.OBJ_START, pos, pos));
+								
+								if (elements.size() > 0) {
+									// make sure we're properly delimited
+									if (!this.isDelimited(braceStack, elements)) {
+										valid = false;
+										break;
+									}
+								}
+								elements.add(new ParsedElement(ElementType.OBJ_START, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							else if (c == '[') {
-								elements.add(new ParsedElement(ElementType.LIST_START, pos, pos));
+								if (elements.size() > 0) {
+									// make sure we're properly delimited
+									if (!this.isDelimited(braceStack, elements)) {
+										valid = false;
+										break;
+									}
+								}
+								elements.add(new ParsedElement(ElementType.LIST_START, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							
 							// push it on the stack
@@ -415,10 +456,26 @@ public class JSONParser implements FingerPrintingParser {
 							
 							// what are we ending?
 							if (c == '}') {
-								elements.add(new ParsedElement(ElementType.OBJ_END, pos, pos));
+								
+								// can't end an object with a separator or delimiter
+								ElementType tailType = elements.get(elements.size() - 1).type;
+								if ( (tailType == ElementType.OBJ_SEPARATOR) || (tailType == ElementType.OBJ_DELIMITER) ) {
+									// nope a nope
+									valid = false;
+									break;
+								}
+
+								elements.add(new ParsedElement(ElementType.OBJ_END, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							else if (c == ']') {
-								elements.add(new ParsedElement(ElementType.LIST_END, pos, pos));
+								
+								// can't end a list with a delimiter
+								if (elements.get(elements.size() - 1).type == ElementType.LIST_DELIMITER) {
+									// nope a nope
+									valid = false;
+									break;
+								}
+								elements.add(new ParsedElement(ElementType.LIST_END, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							
 							// is our stack empty? If so, we've got a match
@@ -434,7 +491,7 @@ public class JSONParser implements FingerPrintingParser {
 							ParsedElement look_behind = elements.get(elements.size() - 1);
 							
 							if (look_behind.type == ElementType.STRING) {
-								elements.add(new ParsedElement(ElementType.OBJ_SEPARATOR, pos, pos));
+								elements.add(new ParsedElement(ElementType.OBJ_SEPARATOR, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							else {
 								// nerp.
@@ -463,10 +520,10 @@ public class JSONParser implements FingerPrintingParser {
 							char look_behind = braceStack.get(braceStack.size() - 1);
 							
 							if (look_behind == '{') {
-								elements.add(new ParsedElement(ElementType.OBJ_DELIMITER, pos, pos));
+								elements.add(new ParsedElement(ElementType.OBJ_DELIMITER, pos + elementAdjustment, pos + elementAdjustment));
 							}
 							else if (look_behind == '[') {
-								elements.add(new ParsedElement(ElementType.LIST_DELIMITER, pos, pos));
+								elements.add(new ParsedElement(ElementType.LIST_DELIMITER, pos + elementAdjustment, pos + elementAdjustment));
 							}
 						}
 						
@@ -483,21 +540,24 @@ public class JSONParser implements FingerPrintingParser {
 							// pull out our number and validate it
 							String number = local.substring(pos, look_ahead_idx);
 							Matcher numberMatcher = numericPattern.matcher(number);
-							
-							System.out.println("Numeric is <" + number + ">");
-							
+														
 							if (numberMatcher.matches()) {
+
+								// make sure we're properly delimited
+								if (!this.isDelimited(braceStack, elements)) {
+									valid = false;
+									break;
+								}
 								
-								System.out.println("match");
 								// pop in on our element stack
-								elements.add(new ParsedElement(ElementType.NUMBER, pos, look_ahead_idx - 1));
+								elements.add(new ParsedElement(ElementType.NUMBER, pos + elementAdjustment, look_ahead_idx - 1 + elementAdjustment));
 								
 								// jump
 								pos = look_ahead_idx - 1;
 								continue;
 							}
 							else {
-								System.out.println("no match");
+							
 								// we've got a problem. Number isn't sane.
 								valid = false;
 								break;
@@ -529,5 +589,36 @@ public class JSONParser implements FingerPrintingParser {
 			return new ArrayList<ParsedElement>();
 		}
 		
+	}
+	
+	protected boolean isDelimited(List<Character> braceStack, List<ParsedElement> elements) {
+		
+		// we're adding a value type to ... something. Determine if we're properly delimited
+		boolean proper = false;
+		
+		char brace_look_behind = braceStack.get(braceStack.size() - 1);
+		ParsedElement element_look_behind = elements.get(elements.size() - 1);
+		
+		//System.out.println("Checking proper delimiting" + "\n\tbrace_behind: " + brace_look_behind + "\n\telement behind: " + element_look_behind.type);
+		if (brace_look_behind == '[') {
+			
+			// if we're in a list, the previous value needs to be start of list or list delimiter
+			if ( (element_look_behind.type == ElementType.LIST_START) || (element_look_behind.type == ElementType.LIST_DELIMITER) ) {
+				proper = true;
+			}
+		}
+		else if (brace_look_behind == '{') {
+			
+			// if we're in an object, we need one of: obj_start, delimiter, separator
+			if ( 
+					(element_look_behind.type == ElementType.OBJ_START) || 
+					(element_look_behind.type == ElementType.OBJ_DELIMITER) ||
+					(element_look_behind.type == ElementType.OBJ_SEPARATOR)
+				) {
+				proper = true;
+			}
+		}
+		
+		return proper;
 	}
 }

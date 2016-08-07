@@ -12,7 +12,7 @@ public class ParsedElement {
 	
 	public ParsedElement(ElementType t, int s) {
 		this.type = t;
-		this.start = 2;
+		this.start = s;
 	}
 	
 	public ParsedElement(ElementType t, int s, int e) {

@@ -69,10 +69,42 @@ public class JSONParser_Test {
 		
 		// let's try a mixed list
 		elements = jp.parse("[1, 2.0, -3.14, \"hello\", \"[not, a, real, list]\", true, false, {}]");
-		this.dump(elements);
 		assertTrue(elements.size() > 0);
 		
+		// make sure lists have delimiters
+		elements = jp.parse("[1 2 3]");
+		assertTrue("Lists need delimiters", elements.size() == 0);
 		
+		// can't start a list with a delimiter
+		elements = jp.parse("[, 2, 3]");
+		assertTrue("Lists can't start with delimiters", elements.size() == 0);
+		
+		// can't end a list with a delimiter
+		elements = jp.parse("[1, 2, 3, ]");
+		assertTrue("Lists can't end with delimiters", elements.size() == 0);
+		
+		// make sure objects have separators
+		elements = jp.parse("{\"a\" 3}");
+		assertTrue("Objects need separators", elements.size() == 0);
+		
+		// make sure objects have delimiters
+		elements = jp.parse("{\"a\": 1 \"b\": 2}");
+		assertTrue("Objects need delimiters", elements.size() == 0);
+		
+		// objects can't end with delimiters or separators
+		elements = jp.parse("{\"a\":}");
+		assertTrue("Objects can't end with separators", elements.size() == 0);
+		
+		elements = jp.parse("{\"a\": 1,}");
+		assertTrue("Objects can't end with delimiters", elements.size() == 0);
+		
+		// objects can't start with delimiters or separators
+		elements = jp.parse("{: 2}");
+		assertTrue("Objects can't start with separators", elements.size() == 0);
+		
+		elements = jp.parse("{, \"a\": 3}");
+		assertTrue("Objects can't start with delimiters", elements.size() == 0);
+				
 	}
 	
 	protected void dump(List<ParsedElement> elements) {

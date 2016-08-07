@@ -113,3 +113,4 @@
 - [ ] Single line file has no line numbers in gutter
 - [ ] Lines seem to be missing lines at end when they are new lines
 - [ ] fast parsers are not decimal aware (i.e. 9 is fine, 9.1 makes them barf)
+- [ ] JSON parser doesn't check for delimiters or separators between values (aaaah damn)
