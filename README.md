@@ -50,4 +50,4 @@ Done!
 
 ## Output
 
-The built Mac lib is in `release/OtterBall.zip`
+The built Mac app is in `release/OtterBall.app`
