@@ -61,12 +61,16 @@ public class JSONParser_Test {
 		
 		// step it up a bit
 		elements = jp.parse("{\"floob\": { \"a\": 1, \"b\": [1, 2.0, -3.4 ]}}");
-		this.dump(elements);
-		assertTrue(elements.size() > 0);
+		assertTrue(elements.size() == 19);
 		
 		// we need to make sure this is validating...
 		elements = jp.parse("{\"a\": [1 : , ,]}");
 		assertTrue(elements.size() == 0);
+		
+		// let's try a mixed list
+		elements = jp.parse("[1, 2.0, -3.14, \"hello\", \"[not, a, real, list]\", true, false, {}]");
+		this.dump(elements);
+		assertTrue(elements.size() > 0);
 		
 		
 	}

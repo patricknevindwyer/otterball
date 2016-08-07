@@ -490,7 +490,7 @@ public class JSONParser implements FingerPrintingParser {
 								
 								System.out.println("match");
 								// pop in on our element stack
-								elements.add(new ParsedElement(ElementType.NUMBER, pos, look_ahead_idx));
+								elements.add(new ParsedElement(ElementType.NUMBER, pos, look_ahead_idx - 1));
 								
 								// jump
 								pos = look_ahead_idx - 1;
