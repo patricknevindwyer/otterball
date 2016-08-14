@@ -57,14 +57,16 @@
 
 # Editor Backend
 
-- [ ] Use parsers for syntax highlighting
+- [ ] Use multiple parsers for syntax highlighting
 - [ ] Editor windows listed in "Window"
 - [ ] Save dialog needs *.json extension, not JS
 - [ ] Tabs instead of windows?
+- [ ] Update JSONDocument in JSONShell only after a typing delay, not on every edit
 
 # Easy Edit - Single Object
 
-- [ ] quick toggle reflow/condensed
+- [x] quick toggle reflow/condensed
+- [ ] reflow/condensed toggle needs to maintain cursor positioning
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
@@ -76,6 +78,9 @@
 - [ ] To/from base64
 - [ ] excise field
 - [ ] insert field
+- [ ] Edit menu
+  - [ ] Expand
+  - [ ] Compact
 - [ ] Detect changes to underlying file
 
 # Easy Edit - Multiple Object

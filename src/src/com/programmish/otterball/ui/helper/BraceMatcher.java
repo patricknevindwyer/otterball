@@ -207,7 +207,16 @@ public class BraceMatcher implements CaretListener {
 			else {
 				style.borderStyle = SWT.NONE;
 			}
-			this.editor.setStyleRange(style);
+			try {
+				this.editor.setStyleRange(style);
+			}
+			catch (ArrayIndexOutOfBoundsException aioobe) {
+				// we need to eat this - the way things get called
+				// is out of order, and this match can happened when
+				// a large section of the editor has changed (say, with
+				// a format reflow).
+				BraceMatcher.logger.debug("! ate an ArrayIndexOutOfBounds exception when setting editor style");
+			}
 		}
 		else {
 			

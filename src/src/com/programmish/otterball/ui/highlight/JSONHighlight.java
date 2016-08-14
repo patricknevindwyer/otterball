@@ -42,7 +42,7 @@ public class JSONHighlight implements ExtendedModifyListener {
 	@Override
 	public void modifyText(ExtendedModifyEvent arg0) {
 
-		List<ParsedElement> elements = this.jsEditor.getParsedElements();
+		List<ParsedElement> elements = this.jsEditor.getJSONDocument().getParsedElements();
 		JSONHighlight.logger.debug(String.format("JSONHighlight got %d parsed elements", elements.size()));
 		
 		this.highlight(this.editor.getText(), elements);
@@ -108,7 +108,7 @@ public class JSONHighlight implements ExtendedModifyListener {
 	public void highlightAsync(final int start, final int length) {
 		
 		final String text = this.editor.getText();
-		List<ParsedElement> elements = this.jsEditor.getParsedElements();
+		List<ParsedElement> elements = this.jsEditor.getJSONDocument().getParsedElements();
 		new Thread("highlight") {
 			public void run() {
 				highlight(text, elements);

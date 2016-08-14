@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Display;
 
 import com.programmish.otterball.parsing.FingerPrintingParser;
+import com.programmish.otterball.parsing.JSONDocument;
 import com.programmish.otterball.parsing.JSONParser;
 import com.programmish.otterball.parsing.ParsedElement;
 import com.programmish.otterball.parsing.PythonUnicodeParser;
@@ -22,7 +25,7 @@ import com.programmish.otterball.ui.helper.StyledTextUndo;
 import com.programmish.otterball.ui.helper.TabToSpace;
 import com.programmish.otterball.ui.highlight.JSONHighlight;
 
-public class JSONShell extends OBEditor {
+public class JSONShell extends OBEditor implements ModifyListener {
 
 	private static Logger logger = Logger.getLogger("otterball." + JSONShell.class.getSimpleName());
 			
@@ -40,6 +43,9 @@ public class JSONShell extends OBEditor {
 	private List<FingerPrintingParser> fingerPrinters;
 	private JSONParser jsonParser;
 	
+	// Document Control
+	private JSONDocument jsonDocument;
+	
 	// highlight control
 	private JSONHighlight highlighter;
 		
@@ -47,17 +53,28 @@ public class JSONShell extends OBEditor {
 		super(d);
 	}
 	
+	
 	public JSONShell(Display d, String p) {
 		super(d, p);
 	}
-	
-	public List<ParsedElement> getParsedElements() {
-		return this.jsonParser.parse(this.editor.getText());
+
+	@Override
+	public void modifyText(ModifyEvent e) {
+		super.modifyText(e);
+		
+		this.jsonDocument.setParsedElements(this.jsonParser.parse(this.editor.getText()));
+		
+	}
+
+	public JSONDocument getJSONDocument() {
+		return this.jsonDocument;
 	}
 	
 	protected void addEditorFeatures() {
 		
 		this.jsonParser = new JSONParser();
+		this.jsonDocument = new JSONDocument();
+		this.jsonDocument.setParsedElements(this.jsonParser.parse(this.editor.getText()));
 
 		// setup language highlighting
 		this.highlighter = new JSONHighlight(this, this.editor);
@@ -83,6 +100,7 @@ public class JSONShell extends OBEditor {
 	protected void postOpen() {
 		// this is a shim for clearing out the error table
 		this.updateWithAnalysis(new ArrayList());
+		
 		
 		// run typing on our content
 		this.typeContents();
@@ -131,6 +149,19 @@ public class JSONShell extends OBEditor {
 		}
 		else if (ce == OBEvent.SelectAll) {
 			this.editor.selectAll();
+		}
+		else if (ce == OBEvent.ToggleCollapse) {
+			
+			if (this.jsonDocument.isExpanded()) {
+				// collapse
+				this.editor.setText(jsonDocument.collapse(this.editor.getText()));
+				
+			}
+			else {
+				// expand
+				this.editor.setText(jsonDocument.expand(this.editor.getText()));
+				
+			}
 		}
 	}
 }

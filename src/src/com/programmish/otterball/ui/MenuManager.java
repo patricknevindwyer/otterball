@@ -182,6 +182,12 @@ public class MenuManager {
 		selectAllItem.setText ("Select &All\tCtrl+A");
 		selectAllItem.setAccelerator (SWT.MOD1 + 'A');
 		selectAllItem.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectAll));
+		
+		// Toggle JSON Collapse
+		MenuItem toggleCollapse = new MenuItem(submenu, SWT.PUSH);
+		toggleCollapse.setText("Toggle &Expand/Collapse\tCtrl+E");
+		toggleCollapse.setAccelerator(SWT.MOD1 + 'E');
+		toggleCollapse.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleCollapse));
 
 	}
 	
