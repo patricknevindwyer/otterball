@@ -50,9 +50,17 @@
   - [ ] Python Unicode
   - [ ] Single Quoted Strings
   - [ ] JS Style
-  
+- [ ] Parser needs to return error hints and helpful messages
+- [ ] Parser needs to return partial parse tree
+- [ ] Parser needs to differentiate between regular strings and object keys
+
 # Easy Edit Features
 
+- [ ] BUG: StyleRanges are off by one...
+- [ ] Expand highlight theme to be JSON specific
+- [ ] Save dialog needs *.json extension, not JS
+- [ ] Editor feature to extract sections
+- [ ] Editor feature to map sections to parsed elements
 - [ ] Multiple objects per file aware
 - [ ] Reflow selection/all
 - [ ] quick toggle reflow/condensed
@@ -66,6 +74,7 @@
   - [ ] brackets [] 
 - [ ] Field based search
 - [ ] Find/replace
+  - [ ] regex find and highlight
   - [ ] all
   - [ ] field aware
   - [ ] non-syntax based (not syntactically or semantically aware)

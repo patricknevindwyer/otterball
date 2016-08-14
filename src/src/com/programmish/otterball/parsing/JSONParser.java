@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 public class JSONParser implements FingerPrintingParser {
 	private String content;
-	
+	private static Logger logger = Logger.getLogger("otterball." + JSONParser.class.getSimpleName());
+
 	public JSONParser() {
 		this.content = "";
 	}
@@ -229,6 +232,7 @@ public class JSONParser implements FingerPrintingParser {
 	}
 	
 	public List<ParsedElement> parse(String blob) {
+		JSONParser.logger.debug(" - parser - starting whole text parse");
 		return this.parse(blob, 0);
 	}
 	
@@ -242,6 +246,8 @@ public class JSONParser implements FingerPrintingParser {
 	 * @return List<ParsedElement> parse queue
 	 */
 	public List<ParsedElement> parse(String blob, int offset) {
+		
+		JSONParser.logger.debug(String.format(" - parser - starting offset parse at %d", offset));
 		String local = blob.substring(offset);
 		local = local.replaceAll("^\\s+", "");
 		
@@ -253,6 +259,7 @@ public class JSONParser implements FingerPrintingParser {
 		
 		// quick test for our outer marker
 		if ( !local.startsWith("{") && !local.startsWith("[")) {
+			JSONParser.logger.debug(" - parser - bailing (doesn't start as an object)");
 			return elements;
 		}
 		
@@ -334,6 +341,7 @@ public class JSONParser implements FingerPrintingParser {
 
 							// make sure we're properly delimited
 							if (!this.isDelimited(braceStack, elements.subList(0, elements.size() - 1))) {
+								JSONParser.logger.debug(String.format(" - parser - improperly delimited at pos(%d)", pos));
 								valid = false;
 								break;
 							}
@@ -586,7 +594,8 @@ public class JSONParser implements FingerPrintingParser {
 			return elements;
 		}
 		else {
-			return new ArrayList<ParsedElement>();
+			JSONParser.logger.debug(String.format(" - parser - JSON parse marked as invalid. %d elements in parse tree", elements.size()));
+			return elements;
 		}
 		
 	}

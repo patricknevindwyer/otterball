@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Display;
 
 import com.programmish.otterball.parsing.FingerPrintingParser;
 import com.programmish.otterball.parsing.JSONParser;
+import com.programmish.otterball.parsing.ParsedElement;
 import com.programmish.otterball.parsing.PythonUnicodeParser;
 import com.programmish.otterball.parsing.SingleQuoteParser;
 import com.programmish.otterball.parsing.TextRange;
@@ -19,7 +20,7 @@ import com.programmish.otterball.ui.helper.LineHighlight;
 import com.programmish.otterball.ui.helper.PairInsert;
 import com.programmish.otterball.ui.helper.StyledTextUndo;
 import com.programmish.otterball.ui.helper.TabToSpace;
-import com.programmish.otterball.ui.highlight.DumbJavaScriptHighlighter;
+import com.programmish.otterball.ui.highlight.JSONHighlight;
 
 public class JSONShell extends OBEditor {
 
@@ -37,9 +38,10 @@ public class JSONShell extends OBEditor {
 	
 	// parsers
 	private List<FingerPrintingParser> fingerPrinters;
+	private JSONParser jsonParser;
 	
 	// highlight control
-	private DumbJavaScriptHighlighter highlighter;
+	private JSONHighlight highlighter;
 		
 	public JSONShell(Display d) {
 		super(d);
@@ -49,10 +51,16 @@ public class JSONShell extends OBEditor {
 		super(d, p);
 	}
 	
+	public List<ParsedElement> getParsedElements() {
+		return this.jsonParser.parse(this.editor.getText());
+	}
+	
 	protected void addEditorFeatures() {
+		
+		this.jsonParser = new JSONParser();
 
 		// setup language highlighting
-		this.highlighter = new DumbJavaScriptHighlighter(this, this.editor);
+		this.highlighter = new JSONHighlight(this, this.editor);
 		this.highlighter.highlightAsync(0, this.editor.getText().length());
 		
 		// Add the undo/redo manager
