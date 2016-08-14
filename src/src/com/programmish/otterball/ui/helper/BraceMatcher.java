@@ -196,7 +196,13 @@ public class BraceMatcher implements CaretListener {
 	private void toggleHighlight(int offset, boolean toggle) {
 		
 		// Find the current style used on the brace
-		StyleRange style = this.editor.getStyleRangeAtOffset(offset);
+		StyleRange style;
+		try {	
+			style = this.editor.getStyleRangeAtOffset(offset);
+		} catch (IllegalArgumentException iae) {
+			// we're eating this because of the possible wonky order of events
+			return;
+		}
 
 		if (style != null) {
 			

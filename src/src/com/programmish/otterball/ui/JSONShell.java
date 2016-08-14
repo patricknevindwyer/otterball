@@ -152,16 +152,19 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		}
 		else if (ce == OBEvent.ToggleCollapse) {
 			
+			// store our index
+			int caretIndex = jsonDocument.getIndexAtCaret(this.editor.getCaretOffset());
+			
 			if (this.jsonDocument.isExpanded()) {
 				// collapse
 				this.editor.setText(jsonDocument.collapse(this.editor.getText()));
-				
 			}
 			else {
 				// expand
-				this.editor.setText(jsonDocument.expand(this.editor.getText()));
-				
+				this.editor.setText(jsonDocument.expand(this.editor.getText()));	
 			}
+			
+			this.editor.setCaretOffset(this.jsonDocument.getCaretAtIndex(caretIndex));
 		}
 	}
 }

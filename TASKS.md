@@ -66,7 +66,7 @@
 # Easy Edit - Single Object
 
 - [x] quick toggle reflow/condensed
-- [ ] reflow/condensed toggle needs to maintain relative cursor positioning
+- [x] reflow/condensed toggle needs to maintain relative cursor positioning
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote

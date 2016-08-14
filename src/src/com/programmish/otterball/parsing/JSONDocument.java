@@ -56,4 +56,40 @@ public class JSONDocument {
 		this.expanded = false;
 		return compacted;
 	}
+	
+	public int getIndexAtCaret(int caret) {
+		if (!this.containsCursor(caret)) {
+			return -1;
+		}
+		
+		for (int i = 0; i < this.elements.size(); i++) {
+			int st = this.elements.get(i).start;
+			int ed = this.elements.get(i).end;
+			
+			if (caret < st) {
+				// we're passed the end of the caret already, 
+				// let's back track
+				if (i == 0) {
+					return 0;
+				}
+				else {
+					return i - 1;
+				}
+			}
+			else if ( (caret >= st) && (caret <= ed) ) {
+				return i;
+			}
+		}
+		return -1;
+		
+	}
+	
+	public int getCaretAtIndex(int index) {
+		if (index >= this.elements.size()) {
+			return -1;
+		}
+		else {
+			return this.elements.get(index).start;
+		}
+	}
 }
