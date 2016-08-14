@@ -53,11 +53,12 @@
 - [ ] Parser needs to return error hints and helpful messages
 - [ ] Parser needs to return partial parse tree
 - [ ] Parser needs to differentiate between regular strings and object keys
+- [ ] Use fast version of parser to build a better _find_sections_ 
 
 # Easy Edit Features
 
-- [ ] BUG: StyleRanges are off by one...
-- [ ] Expand highlight theme to be JSON specific
+- [x] BUG: StyleRanges are off by one...
+- [x] Expand highlight theme to be JSON specific
 - [ ] Save dialog needs *.json extension, not JS
 - [ ] Editor feature to extract sections
 - [ ] Editor feature to map sections to parsed elements
