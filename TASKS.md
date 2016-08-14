@@ -55,38 +55,53 @@
 - [ ] Parser needs to differentiate between regular strings and object keys
 - [ ] Use fast version of parser to build a better _find_sections_ 
 
-# Easy Edit Features
+# Editor Backend
 
-- [x] BUG: StyleRanges are off by one...
-- [x] Expand highlight theme to be JSON specific
-- [ ] Save dialog needs *.json extension, not JS
-- [ ] Editor feature to extract sections
-- [ ] Editor feature to map sections to parsed elements
-- [ ] Multiple objects per file aware
-- [ ] Reflow selection/all
-- [ ] quick toggle reflow/condensed
-- [ ] Highlight support in JSONParser and friends
 - [ ] Use parsers for syntax highlighting
+- [ ] Editor windows listed in "Window"
+- [ ] Save dialog needs *.json extension, not JS
+- [ ] Tabs instead of windows?
+
+# Easy Edit - Single Object
+
+- [ ] quick toggle reflow/condensed
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
   - [ ] brackets () 
   - [ ] brackets {} 
   - [ ] brackets [] 
+- [ ] Indent/Outdent/Reflow selection
+- [ ] Condense/compact
+- [ ] To/from base64
+- [ ] excise field
+- [ ] insert field
+- [ ] Detect changes to underlying file
+
+# Easy Edit - Multiple Object
+
+- [ ] Editor feature to extract sections
+- [ ] Editor feature to map sections to parsed elements
+- [ ] Multiple objects per file aware
+- [ ] Reflow selection/all
+- [ ] Highlight support in JSONParser and friends
+
+
+# Find/Replace
+
 - [ ] Field based search
 - [ ] Find/replace
   - [ ] regex find and highlight
   - [ ] all
   - [ ] field aware
   - [ ] non-syntax based (not syntactically or semantically aware)
-- [ ] Condense/compact
 - [ ] Select lines by search or select
 - [ ] Keep/reject lines
-- [ ] To/from base64
-- [ ] excise field
-- [ ] insert field
-- [ ] Indent/Outdent/Reflow selection
-- [ ] Detect changes to underlying file
+
+# Bugs/Fixes
+
+- [x] BUG: StyleRanges are off by one...
+- [x] Expand highlight theme to be JSON specific
 
 # Analysis
 
