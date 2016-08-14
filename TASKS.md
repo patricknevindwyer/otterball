@@ -66,7 +66,7 @@
 # Easy Edit - Single Object
 
 - [x] quick toggle reflow/condensed
-- [ ] reflow/condensed toggle needs to maintain cursor positioning
+- [ ] reflow/condensed toggle needs to maintain relative cursor positioning
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
@@ -107,6 +107,7 @@
 
 - [x] BUG: StyleRanges are off by one...
 - [x] Expand highlight theme to be JSON specific
+- [ ] Reflow/condense currently replaces entire contents of editor
 
 # Analysis
 
