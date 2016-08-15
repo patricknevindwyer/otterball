@@ -105,11 +105,6 @@
 - [ ] Select lines by search or select
 - [ ] Keep/reject lines
 
-# Bugs/Fixes
-
-- [x] BUG: StyleRanges are off by one...
-- [x] Expand highlight theme to be JSON specific
-- [ ] Reflow/condense currently replaces entire contents of editor
 
 # Analysis
 
@@ -135,6 +130,7 @@
 - [ ] JSONPath analysis transforms
 - [ ] breadcrumb for JSONPath to cursor
 - [ ] Make reflow smarter about list length and adding newlines
+- [ ] Slim down the .app release target
 
 # Improved Views
 
@@ -150,3 +146,6 @@
 - [ ] fast parsers are not decimal aware (i.e. 9 is fine, 9.1 makes them barf)
 - [x] JSON parser doesn't check for delimiters or separators between values (aaaah damn)
 - [ ] Parsers are using ArrayLists, should optimize to something faster
+- [x] BUG: StyleRanges are off by one...
+- [x] Expand highlight theme to be JSON specific
+- [ ] Reflow/condense currently replaces entire contents of editor
