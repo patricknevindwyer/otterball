@@ -50,6 +50,7 @@
   - [ ] Python Unicode
   - [ ] Single Quoted Strings
   - [ ] JS Style
+- [ ] parsing needs to return indication whether a parse completely validated, or was a partial parse
 - [ ] Parser needs to return error hints and helpful messages
 - [ ] Parser needs to return partial parse tree
 - [ ] Parser needs to differentiate between regular strings and object keys
@@ -67,6 +68,7 @@
 
 - [x] quick toggle reflow/condensed
 - [x] reflow/condensed toggle needs to maintain relative cursor positioning
+- [ ] !! Lookahead in the parsers will overflow the string boundary trying to read larger values.
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote

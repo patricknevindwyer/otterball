@@ -343,6 +343,10 @@ public class JSONParser implements FingerPrintingParser {
 							if (!this.isDelimited(braceStack, elements.subList(0, elements.size() - 1))) {
 								JSONParser.logger.debug(String.format(" - parser - improperly delimited at pos(%d)", pos));
 								valid = false;
+								
+								// pop the last element off of our element list - it's part of the problem
+								elements.remove(elements.size() - 1);
+								
 								break;
 							}
 						}
@@ -361,6 +365,13 @@ public class JSONParser implements FingerPrintingParser {
 					
 					// do a look ahead for being a boolean
 					if (c == 't') {
+
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 4)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 4).equals("true")) {
 							
 							// make sure we're properly delimited
@@ -380,6 +391,13 @@ public class JSONParser implements FingerPrintingParser {
 					}
 					
 					if (c == 'f') {
+						
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 5)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 5).equals("false")) {
 							
 							// make sure we're properly delimited
@@ -399,6 +417,13 @@ public class JSONParser implements FingerPrintingParser {
 					
 					// check for the null string
 					if (c == 'n') {
+						
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 4)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 4).equals("null")) {
 							
 							// make sure we're properly delimited
