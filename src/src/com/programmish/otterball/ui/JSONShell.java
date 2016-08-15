@@ -37,7 +37,7 @@ public class JSONShell extends OBEditor implements ModifyListener {
 	private TabToSpace autoTabber;
 	private PairInsert pairInserter;
 	private AutoIndenter autoIndenter;
-	private BraceMatcher braceMatcher;
+	//private BraceMatcher braceMatcher;
 	
 	// parsers
 	private List<FingerPrintingParser> fingerPrinters;
@@ -88,7 +88,7 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		this.autoTabber = new TabToSpace(this.editor, 4);
 		this.pairInserter = new PairInsert(this.editor);
 		this.autoIndenter = new AutoIndenter(this.editor);
-		this.braceMatcher = new BraceMatcher(this, this.editor);
+		//this.braceMatcher = new BraceMatcher(this, this.editor);
 		
 		// our finger printers
 		this.fingerPrinters = new ArrayList<>();
@@ -145,7 +145,7 @@ public class JSONShell extends OBEditor implements ModifyListener {
 	public void dispatchEvent(OBEvent ce) {
 		
 		if (ce == OBEvent.BraceJump) {
-			this.braceMatcher.jumpBraces();
+			//this.braceMatcher.jumpBraces();
 		}
 		else if (ce == OBEvent.SelectAll) {
 			this.editor.selectAll();
