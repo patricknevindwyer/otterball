@@ -251,6 +251,8 @@ public class JSONParser implements FingerPrintingParser {
 		String local = blob.substring(offset);
 		local = local.replaceAll("^\\s+", "");
 		
+		long start_time = System.currentTimeMillis();
+		
 		List<ParsedElement> elements = new ArrayList<>();
 		
 		int trimDiff = blob.length() - local.length() - offset;
@@ -513,7 +515,7 @@ public class JSONParser implements FingerPrintingParser {
 							
 							// is our stack empty? If so, we've got a match
 							if (braceStack.size() == 0) {
-								return elements;
+								break;
 							}
 						}
 						
@@ -614,7 +616,11 @@ public class JSONParser implements FingerPrintingParser {
 			}
 		}
 		
+		long end_time = System.currentTimeMillis();
+		JSONParser.logger.debug(String.format(" - parser - Parsed %d elements in %d milliseconds",  elements.size(), end_time - start_time ));
+		
 		if (valid && (braceStack.size() == 0)) {
+			JSONParser.logger.debug(" - parser - successful parse");
 			// we've parsed successfully
 			return elements;
 		}
