@@ -80,7 +80,9 @@ public class BraceMatcher implements CaretListener {
 	
 	@Override
 	public void caretMoved(CaretEvent e) {
-
+		
+		long st = System.currentTimeMillis();
+		
 		// setup our raw data
 		int caretPos = e.caretOffset;
 		String text = this.editor.getText();
@@ -191,6 +193,9 @@ public class BraceMatcher implements CaretListener {
 		if (lastCloseBraceOffset != -1) {
 			toggleHighlight(lastCloseBraceOffset, true);
 		}
+		
+		long ed = System.currentTimeMillis();
+		BraceMatcher.logger.debug(String.format(" - BraceMatcher::caretMoved - took %d ms", ed - st));
 	}
 	
 	private void toggleHighlight(int offset, boolean toggle) {

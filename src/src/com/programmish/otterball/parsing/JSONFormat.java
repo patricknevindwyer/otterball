@@ -2,20 +2,26 @@ package com.programmish.otterball.parsing;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class JSONFormat {
+	
+	private static Logger logger = Logger.getLogger("otterball." + JSONFormat.class.getSimpleName());
 	
 	public static String compact(String text, List<ParsedElement> elements) {
 		return JSONFormat.compact(text, elements, 0);
 	}
 	
 	public static String compact(String text, List<ParsedElement> elements, int offset) {
+		long st = System.currentTimeMillis();
 		StringBuilder sb = new StringBuilder();
 		
 		// we are literally ripping through this text to rebuild
 		for (ParsedElement e : elements) {
 			sb.append(text.substring(e.start + offset, e.end + offset + 1));
 		}
-		
+		long ed = System.currentTimeMillis();
+		JSONFormat.logger.debug(String.format(" - JSONFormat::compact took %d ms", ed - st));
 		return sb.toString();
 	}
 
@@ -24,6 +30,7 @@ public class JSONFormat {
 	}
 	
 	public static String reflow(String text, String indent, List<ParsedElement> elements, int offset) {
+		long st = System.currentTimeMillis();
 		StringBuilder sb = new StringBuilder();
 		
 		int indentSize = 0;
@@ -71,6 +78,8 @@ public class JSONFormat {
 			}
 		}
 		
+		long ed = System.currentTimeMillis();
+		JSONFormat.logger.debug(String.format(" - JSONFormat::reflow took %d ms", ed - st));
 		
 		return sb.toString();
 	}
