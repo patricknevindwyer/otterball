@@ -23,7 +23,7 @@ public class JSONHighlight implements ExtendedModifyListener {
 	private StyledText editor;
 	private JSONShell jsEditor;
 	
-	private static Logger logger = Logger.getLogger("otterball." + DumbJavaScriptHighlighter.class.getSimpleName());
+	private static Logger logger = Logger.getLogger("otterball." + JSONHighlight.class.getSimpleName());
 	
 	Map<ElementType, Color> colorMap;
 	

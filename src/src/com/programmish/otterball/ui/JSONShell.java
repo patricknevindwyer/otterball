@@ -6,17 +6,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 
 import com.programmish.otterball.parsing.FingerPrintingParser;
 import com.programmish.otterball.parsing.JSONDocument;
 import com.programmish.otterball.parsing.JSONParser;
-import com.programmish.otterball.parsing.ParsedElement;
 import com.programmish.otterball.parsing.PythonUnicodeParser;
 import com.programmish.otterball.parsing.SingleQuoteParser;
 import com.programmish.otterball.parsing.TextRange;
 import com.programmish.otterball.ui.helper.AutoIndenter;
-import com.programmish.otterball.ui.helper.BraceMatcher;
 import com.programmish.otterball.ui.helper.CaretStatus;
 import com.programmish.otterball.ui.helper.CommentToggler;
 import com.programmish.otterball.ui.helper.LineHighlight;
@@ -182,6 +181,20 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			this.editor.setText(jsonDocument.expand(this.editor.getText()));	
 			
 			this.editor.setCaretOffset(this.jsonDocument.getCaretAtIndex(caretIndex));
+			
+		}
+		else if (ce == OBEvent.ReflowCollapseSelection) {
+			// get our selection
+			Point p = this.editor.getSelectionRange();
+			int caret_start = p.x;
+			int caret_end = p.x + p.y;
+			JSONShell.logger.debug(String.format(" - Event::ReflowCollapseSelection (%d, %d)", caret_start, caret_end));
+			if (caret_end > caret_start) {
+				
+				// try and do this
+				this.editor.setText(this.jsonDocument.collapse(this.editor.getText(), caret_start, caret_end));
+				
+			}
 			
 		}
 	}

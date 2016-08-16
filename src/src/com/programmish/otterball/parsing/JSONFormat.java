@@ -25,6 +25,41 @@ public class JSONFormat {
 		return sb.toString();
 	}
 
+	public static String compact(String text, JSONDocument jsd, int start, int end) {
+		long st = System.currentTimeMillis();
+		StringBuilder sb = new StringBuilder();
+		
+		int idx_st = jsd.getIndexAtCaret(start);
+		int idx_ed = jsd.getIndexAtCaret(end);
+		
+		if ( (idx_st == -1) && (idx_ed == -1) ) {
+			return text;
+		}
+		
+		// get the beginning of our text before our compaction area
+		int idx_compactStart = jsd.elements.get(idx_st).start;
+		sb.append(text.substring(0, idx_compactStart));
+		
+		// rip through the elements to build our compacted area
+		for (int idx = idx_st; idx <= idx_ed; idx++) {
+			ParsedElement e = jsd.elements.get(idx);
+			sb.append(text.substring(e.start, e.end + 1));
+		}
+		
+		if (idx_ed >= 0) {
+			int idx_compactEnd = jsd.elements.get(idx_ed).end;
+			sb.append(text.substring(idx_compactEnd + 1));
+		}
+		
+		long ed = System.currentTimeMillis();
+		JSONFormat.logger.debug(String.format(" - JSONFormat::compact took %d ms", ed - st));
+		return sb.toString();
+	}
+	
+	public static String reflow(String text, List<ParsedElement> elements) {
+		return JSONFormat.reflow(text, "    ", elements, 0);
+	}
+	
 	public static String reflow(String text, String indent, List<ParsedElement> elements) {
 		return JSONFormat.reflow(text, indent, elements, 0);
 	}

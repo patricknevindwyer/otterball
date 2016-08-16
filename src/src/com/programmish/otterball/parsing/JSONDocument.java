@@ -57,6 +57,12 @@ public class JSONDocument {
 		return compacted;
 	}
 	
+	public String collapse(String text, int start, int end) {
+		String compacted = JSONFormat.compact(text, this, start, end);
+		this.expanded = false;
+		return compacted;
+	}
+	
 	public int getIndexAtCaret(int caret) {
 		if (!this.containsCursor(caret)) {
 			return -1;
@@ -86,7 +92,10 @@ public class JSONDocument {
 	
 	public int getCaretAtIndex(int index) {
 		if (index >= this.elements.size()) {
-			return -1;
+			return 0;
+		}
+		else if (index < 0) {
+			return 0;
 		}
 		else {
 			return this.elements.get(index).start;
