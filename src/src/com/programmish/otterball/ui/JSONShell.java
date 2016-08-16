@@ -184,18 +184,52 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			
 		}
 		else if (ce == OBEvent.ReflowCollapseSelection) {
-			// get our selection
-			Point p = this.editor.getSelectionRange();
-			int caret_start = p.x;
-			int caret_end = p.x + p.y;
-			JSONShell.logger.debug(String.format(" - Event::ReflowCollapseSelection (%d, %d)", caret_start, caret_end));
-			if (caret_end > caret_start) {
-				
-				// try and do this
-				this.editor.setText(this.jsonDocument.collapse(this.editor.getText(), caret_start, caret_end));
-				
-			}
+
+			// get our selection - stored in a point, fun.
+			this.collapseSelectedText();
+		}
+	}
+	
+	/**
+	 * Determine if text selections have been made.
+	 * 
+	 * @return
+	 */
+	public boolean hasSelections() {
+		Point p = this.editor.getSelectionRange();
+		if (p.y > 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Compact/collapse the selected JSON
+	 */
+	protected void collapseSelectedText() {
+		Point p = this.editor.getSelectionRange();
+		int caret_start = p.x;
+		int caret_end = p.x + p.y;
+		
+		// store our selection range so we can reselect later
+		int caret_startIndex = jsonDocument.getIndexAtCaret(caret_start);
+		int caret_endIndex = jsonDocument.getIndexAtCaret(caret_end);
+		
+		JSONShell.logger.debug(String.format(" - Event::ReflowCollapseSelection (%d, %d)", caret_start, caret_end));
+		if (caret_end > caret_start) {
+			
+			// try and do this
+			this.editor.setText(this.jsonDocument.collapse(this.editor.getText(), caret_start, caret_end));
 			
 		}
+		
+		int select_start_idx = this.jsonDocument.getCaretAtIndex(caret_startIndex);
+		int select_end_idx = this.jsonDocument.getCaretAtIndex(caret_endIndex);
+		
+		// reset our selection
+		this.editor.setSelection(select_start_idx, select_end_idx);
+		
 	}
 }

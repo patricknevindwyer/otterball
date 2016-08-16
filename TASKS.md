@@ -131,6 +131,8 @@
 
 # Future
 
+- [ ] Reopen documents at start
+- [ ] Save unsaved documents in temp
 - [ ] Save as
 - [ ] DebugShell needs to use Theme settings for Font and FontSize
 - [ ] VCS aware (file changes out from under us)
