@@ -88,11 +88,23 @@ public class JSONFormat {
 					}
 				}
 			}
-			
+
+			if (e.type == ElementType.LIST_END) {
+				if (elements.get(pos - 1).type != ElementType.LIST_START) {
+					sb.append("\n");
+					for (int i = 0; i < indentSize; i++) {
+						sb.append(indent);
+					}
+				}
+			}
+
 			sb.append(text.substring(e.start + offset, e.end + offset + 1));
 			
 			if (e.type == ElementType.LIST_DELIMITER) {
-				sb.append(" ");
+				sb.append("\n");
+				for (int i = 0; i < indentSize; i++) {
+					sb.append(indent);
+				}
 			}
 			else if (e.type == ElementType.OBJ_SEPARATOR) {
 				sb.append(" ");
@@ -103,7 +115,7 @@ public class JSONFormat {
 					sb.append(indent);
 				}
 			}
-			else if (e.type == ElementType.OBJ_START) {
+			else if ( (e.type == ElementType.OBJ_START) || (e.type == ElementType.LIST_START) ){
 				if (elements.get(pos + 1).type != ElementType.OBJ_END) {
 					sb.append("\n");
 					for (int i = 0; i < indentSize; i++) {
@@ -111,6 +123,7 @@ public class JSONFormat {
 					}
 				}
 			}
+			
 		}
 		
 		long ed = System.currentTimeMillis();
