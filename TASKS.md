@@ -68,7 +68,7 @@
 
 - [x] quick toggle reflow/condensed
 - [x] reflow/condensed toggle needs to maintain relative cursor positioning
-- [ ] !! Lookahead in the parsers will overflow the string boundary trying to read larger values.
+- [x] !! Lookahead in the parsers will overflow the string boundary trying to read larger values.
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
