@@ -156,11 +156,21 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			
 			if (this.jsonDocument.isExpanded()) {
 				// collapse
-				this.editor.setText(jsonDocument.collapse(this.editor.getText()));
+				if (this.hasSelections()) {
+					this.collapseSelectedText();
+				}
+				else {
+					this.editor.setText(jsonDocument.collapse(this.editor.getText()));
+				}
 			}
 			else {
 				// expand
-				this.editor.setText(jsonDocument.expand(this.editor.getText()));	
+				if (this.hasSelections()) {
+					this.expandSelectedText();
+				}
+				else {
+					this.editor.setText(jsonDocument.expand(this.editor.getText()));
+				}
 			}
 			
 			this.editor.setCaretOffset(this.jsonDocument.getCaretAtIndex(caretIndex));
@@ -188,6 +198,10 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			// get our selection - stored in a point, fun.
 			this.collapseSelectedText();
 		}
+		else if (ce == OBEvent.ReflowExpandSelection) {
+			
+			this.expandSelectedText();
+		}
 	}
 	
 	/**
@@ -203,6 +217,33 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Expand the currently selected JSON
+	 */
+	protected void expandSelectedText() {
+		Point p = this.editor.getSelectionRange();
+		int caret_start = p.x;
+		int caret_end = p.x + p.y;
+		
+		// store our selection range so we can reselect later
+		int caret_startIndex = jsonDocument.getIndexAtCaret(caret_start);
+		int caret_endIndex = jsonDocument.getIndexAtCaret(caret_end);
+		
+		JSONShell.logger.debug(String.format(" - Event::ReflowExpandSelection (%d, %d)", caret_start, caret_end));
+		if (caret_end > caret_start) {
+			
+			// try and do this
+			this.editor.setText(this.jsonDocument.expand(this.editor.getText(), "    ", caret_start, caret_end));
+			
+		}
+		
+		int select_start_idx = this.jsonDocument.getCaretAtIndex(caret_startIndex);
+		int select_end_idx = this.jsonDocument.getCaretAtIndex(caret_endIndex);
+		
+		// reset our selection
+		this.editor.setSelection(select_start_idx, select_end_idx);		
 	}
 	
 	/**

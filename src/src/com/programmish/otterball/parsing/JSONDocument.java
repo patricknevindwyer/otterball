@@ -63,6 +63,12 @@ public class JSONDocument {
 		return compacted;
 	}
 	
+	public String expand(String text, String indent, int start, int end) {
+		String expanded = JSONFormat.reflow(text, indent, this, start, end);
+		this.expanded = true;
+		return expanded;
+	}
+	
 	public int getIndexAtCaret(int caret) {
 		if (!this.containsCursor(caret)) {
 			return -1;

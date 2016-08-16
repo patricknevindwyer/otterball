@@ -219,6 +219,7 @@ public class MenuManager {
 		
 		MenuItem rmExpandSelection = new MenuItem(reflowMenu, SWT.PUSH);
 		rmExpandSelection.setText("Expand Selection");
+		rmExpandSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowExpandSelection));
 		
 		MenuItem rmCollapseSelection = new MenuItem(reflowMenu, SWT.PUSH);
 		rmCollapseSelection.setText("Compact Selection");

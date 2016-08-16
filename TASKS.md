@@ -74,18 +74,19 @@
   - [x] single quote
   - [x] brackets {} 
   - [x] brackets [] 
-- [ ] Indent/Outdent/Reflow selection
-- [ ] Fix reflow of lists
-- [ ] Condense/compact
+- [x] /Reflow selection
+- [ ] Indent/Outdent
+- [x] Fix reflow of lists
+- [x] Condense/compact
 - [ ] To/from base64
 - [ ] excise field
 - [ ] insert field
-- [ ] Edit menu
-  - [ ] Expand
-  - [ ] Compact
+- [x] Edit menu
+  - [x] Expand
+  - [x] Compact
 - [ ] Detect changes to underlying file
 - [ ] Ability to select next containing block (select my surroundings)
-- [ ] Reflow only selection
+- [x] Reflow only selection
 
 # Easy Edit - Multiple Object
 
