@@ -72,10 +72,10 @@
 - [ ] Auto surround with matched characters
   - [ ] Double quote
   - [ ] single quote
-  - [ ] brackets () 
   - [ ] brackets {} 
   - [ ] brackets [] 
 - [ ] Indent/Outdent/Reflow selection
+- [ ] Fix reflow of lists
 - [ ] Condense/compact
 - [ ] To/from base64
 - [ ] excise field
@@ -84,6 +84,8 @@
   - [ ] Expand
   - [ ] Compact
 - [ ] Detect changes to underlying file
+- [ ] Ability to select next containing block (select my surroundings)
+- [ ] Reflow only selection
 
 # Easy Edit - Multiple Object
 
@@ -120,6 +122,11 @@
 - [ ] Invalid values validator (geojson, topojson)
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
+
+# Performance
+
+- [ ] Profile opening / flowing / parsing large samples
+- [ ] Benchmark file read/write strategies
 
 # Future
 
