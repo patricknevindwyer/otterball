@@ -172,6 +172,24 @@ public class MenuManager {
 		
 		MenuManager.logger.debug("Adding Edit menu");
 		
+		/*
+		 * Edit
+		 * 	- Copy
+		 *  - Paste
+		 *  - Select
+		 *  	All
+		 *  	Surrounding Block
+		 *  - Reflow
+		 *  	Expand All
+		 *  	Collapse All
+		 *  	--
+		 *  	Expand Selection
+		 *  	Collapse Selection
+		 *  	--
+		 *  	Toggle Expand/Collapse
+		 * 
+		 */
+
 		MenuItem editItem = new MenuItem (bar, SWT.CASCADE);
 		editItem.setText ("Edit");
 		Menu submenu = new Menu (editItem);
@@ -183,12 +201,39 @@ public class MenuManager {
 		selectAllItem.setAccelerator (SWT.MOD1 + 'A');
 		selectAllItem.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectAll));
 		
-		// Toggle JSON Collapse
-		MenuItem toggleCollapse = new MenuItem(submenu, SWT.PUSH);
+		// Reflow
+		MenuItem reflow = new MenuItem(submenu, SWT.CASCADE);
+		reflow.setText("Reflow");
+		Menu reflowMenu = new Menu(reflow);
+		reflow.setMenu(reflowMenu);
+		
+		MenuItem rmExpandAll = new MenuItem(reflowMenu, SWT.PUSH);
+		rmExpandAll.setText("Expand All");
+		rmExpandAll.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowExpandAll));
+		
+		MenuItem rmCollapseAll = new MenuItem(reflowMenu, SWT.PUSH);
+		rmCollapseAll.setText("Collapse All");
+		rmCollapseAll.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowCollapseAll));
+		
+		MenuItem rmCSSeparator = new MenuItem(reflowMenu, SWT.SEPARATOR);
+		
+		MenuItem rmExpandSelection = new MenuItem(reflowMenu, SWT.PUSH);
+		rmExpandSelection.setText("Expand Selection");
+		
+		MenuItem rmCollapseSelection = new MenuItem(reflowMenu, SWT.PUSH);
+		rmCollapseSelection.setText("Collapse Selection");
+		
+		MenuItem rmSTSeparator = new MenuItem(reflowMenu, SWT.SEPARATOR);
+		
+		MenuItem toggleCollapse = new MenuItem(reflowMenu, SWT.PUSH);
 		toggleCollapse.setText("Toggle &Expand/Collapse\tCtrl+E");
 		toggleCollapse.setAccelerator(SWT.MOD1 + 'E');
 		toggleCollapse.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleCollapse));
-
+		
+		
+		
+		
+		
 	}
 	
 	/**

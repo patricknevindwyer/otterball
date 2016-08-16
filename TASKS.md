@@ -69,11 +69,11 @@
 - [x] quick toggle reflow/condensed
 - [x] reflow/condensed toggle needs to maintain relative cursor positioning
 - [x] !! Lookahead in the parsers will overflow the string boundary trying to read larger values.
-- [ ] Auto surround with matched characters
-  - [ ] Double quote
-  - [ ] single quote
-  - [ ] brackets {} 
-  - [ ] brackets [] 
+- [x] Auto surround with matched characters
+  - [x] Double quote
+  - [x] single quote
+  - [x] brackets {} 
+  - [x] brackets [] 
 - [ ] Indent/Outdent/Reflow selection
 - [ ] Fix reflow of lists
 - [ ] Condense/compact
@@ -127,6 +127,7 @@
 
 - [ ] Profile opening / flowing / parsing large samples
 - [ ] Benchmark file read/write strategies
+- [ ] Trim down bundled app
 
 # Future
 
@@ -156,3 +157,4 @@
 - [x] BUG: StyleRanges are off by one...
 - [x] Expand highlight theme to be JSON specific
 - [ ] Reflow/condense currently replaces entire contents of editor
+- [ ] surrounding a multiline block with automatching (object brackets, for instance) overruns the gutter
