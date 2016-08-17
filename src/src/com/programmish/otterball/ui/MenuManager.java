@@ -179,6 +179,7 @@ public class MenuManager {
 		 *  - Select
 		 *  	All
 		 *  	Surrounding Block
+		 *      Line
 		 *  - Reflow
 		 *  	Expand All
 		 *  	Collapse All
@@ -187,7 +188,9 @@ public class MenuManager {
 		 *  	Collapse Selection
 		 *  	--
 		 *  	Toggle Expand/Collapse
-		 * 
+		 * - Goto
+		 *      Line
+		 *      
 		 */
 
 		MenuItem editItem = new MenuItem (bar, SWT.CASCADE);
@@ -248,7 +251,16 @@ public class MenuManager {
 		toggleCollapse.setAccelerator(SWT.MOD1 + 'E');
 		toggleCollapse.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleCollapse));
 		
+		// Goto
+		MenuItem gotoMenu = new MenuItem(submenu, SWT.CASCADE);
+		gotoMenu.setText("Goto");
+		Menu gotoSubmenu = new Menu(gotoMenu);
+		gotoMenu.setMenu(gotoSubmenu);
 		
+		MenuItem gotoLine = new MenuItem(gotoSubmenu, SWT.PUSH);
+		gotoLine.setText("&Goto Line\tCtrl+G");
+		gotoLine.setAccelerator(SWT.MOD1 + 'G');
+		gotoLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.GotoLine));
 		
 		
 		
