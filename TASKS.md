@@ -85,8 +85,10 @@
   - [x] Expand
   - [x] Compact
 - [ ] Detect changes to underlying file
-- [ ] Ability to select next containing block (select my surroundings)
+- [x] Ability to select next containing block (select my surroundings)
 - [x] Reflow only selection
+- [ ] Copy/Paste in menu
+- [ ] Add version string on startup
 
 # Easy Edit - Multiple Object
 
@@ -142,6 +144,7 @@
 - [ ] breadcrumb for JSONPath to cursor
 - [ ] Make reflow smarter about list length and adding newlines
 - [ ] Slim down the .app release target
+- [ ] Select enclosing block of selection, not just from caret position
 
 # Improved Views
 
@@ -161,3 +164,62 @@
 - [x] Expand highlight theme to be JSON specific
 - [ ] Reflow/condense currently replaces entire contents of editor
 - [ ] surrounding a multiline block with automatching (object brackets, for instance) overruns the gutter
+- [ ] Block select from EOF crashes
+- [ ] Block select => reflow => select => reflow crashes and mangles the document
+- [ ] square brackets add a newline when reflowing when they don't contain any elements. they shouldn't do this, they should act like curly brackets.
+
+# Uncategorized
+
+- use java NIO streams to truly stream data?
+- better timing/tracing of performance during parse cycle
+- restarting parser when encountering errors
+- add an error type or a skipped type to the ElementType
+- word wrap
+- key bindings (VIM style or EMACS style)
+- alternative themes
+- filter/clear debug terminal
+- smaller gutter numbers
+- status bar ala - TextMate
+- select line
+- maybe a thin line between gutter and text area?
+- informational header area as well as footer?
+- JSONPath in header?
+- What about a title bar icon with DND like a native mac app?
+- preferences system
+  - theme
+  - fonts
+  - default parser
+  - indent characters (tab, vs spaces)
+  - key bindings
+- make all of the helpers optional in pref system
+- lines
+  - goto
+  - select
+  - extract to new doc
+  - compare
+- long section eliding, i.e. replace a long string with "..."
+  - would require a very different data model
+  - would be a good way to leverage JSONDocument
+- Save/Quit dialog needs to have key shortcuts (ctrl-d for no)    
+
+# Speeding up via Async
+
+The biggest thing we could do right now is make a better way to detect a text area that needs async update from various plugins in response to a typing lull. Like:
+
+- ModifyEvent -> OBEditor
+- OBEditor -> Detect last change time
+- OBEditor -> lull > 250ms && dirty
+- OBEditor -> JSONShell update async services
+- OBEditor -> Block/interrupt changes when typing starts again
+
+Use a semaphored object to make sure we can properly interrupt events in the async queue?
+
+How do we register other events that should calculate in async, like the brace matcher?
+
+How do we protect the text from getting mangled by events stomping each other?
+
+Style events can get interrupted.
+
+TextModification events cannot get interrupted.
+
+Maybe a queue/map of what to call async, each with a mode/type?
