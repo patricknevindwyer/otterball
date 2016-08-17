@@ -5,6 +5,7 @@ public enum OBEvent {
 	BraceJump,
 	SelectAll,
 	SelectEnclosingBlock,
+	SelectLine,
 	ToggleCollapse,
 	ReflowExpandAll,
 	ReflowCollapseAll,

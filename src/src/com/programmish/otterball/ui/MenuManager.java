@@ -212,6 +212,11 @@ public class MenuManager {
 		selectEnclosingBlock.setAccelerator(SWT.MOD1 + 'B');
 		selectEnclosingBlock.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectEnclosingBlock));
 		
+		MenuItem selectLine = new MenuItem(selectMenu, SWT.PUSH);
+		selectLine.setText("Select &Line\tCtrl+l");
+		selectLine.setAccelerator(SWT.MOD1 + 'L');
+		selectLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectLine));
+		
 		// Reflow
 		MenuItem reflow = new MenuItem(submenu, SWT.CASCADE);
 		reflow.setText("Reflow");

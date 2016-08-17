@@ -90,7 +90,7 @@
 - [ ] smaller gutter numbers
 - [ ] select line
   - [ ] goto
-  - [ ] select
+  - [x] select
 - [ ] maybe a thin line between gutter and text area?
 - [ ] Indent/Outdent
 - [ ] Copy/Paste in menu

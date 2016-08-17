@@ -211,6 +211,12 @@ public class JSONShell extends OBEditor implements ModifyListener {
 				this.editor.setSelection(enclosing.getCaretStart(), enclosing.getCaretEnd() + 1);
 			}
 		}
+		else if (ce == OBEvent.SelectLine) {
+			int line = this.editor.getLineAtOffset(this.editor.getCaretOffset());
+			int line_start = this.editor.getOffsetAtLine(line);
+			int line_end = this.editor.getLine(line).length() + line_start;
+			this.editor.setSelection(line_start, line_end);
+		}
 	}
 	
 	/**
