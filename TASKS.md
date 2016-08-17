@@ -135,6 +135,7 @@
 - [ ] Invalid values validator (geojson, topojson)
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
+- [ ] Add continuous integration hooks on GitHub
 
 # Performance
 
