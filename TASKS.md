@@ -87,11 +87,11 @@
 # Quick UI Update #1
 
 - [ ] word wrap
-- [ ] smaller gutter numbers
+- [-] smaller gutter numbers
 - [ ] select line
   - [ ] goto
   - [x] select
-- [ ] maybe a thin line between gutter and text area?
+- [x] maybe a thin line between gutter and text area?
 - [ ] Indent/Outdent
 - [ ] Copy/Paste in menu
 - [ ] Add version string on startup

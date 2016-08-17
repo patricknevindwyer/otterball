@@ -31,10 +31,11 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 	private Color gutterWarning;
 	private Color gutterWarningStripe;
 //	private Color gutterChannelDark;
-//	private Color gutterChannelLight;
+	private Color gutterChannelLight;
 	private int fontWidth;
 	private int flagWidth;
 	private Map<Integer, Boolean> flagMap;
+	private Font font;
 	
 	public Gutter (StyledText editor) {
 	
@@ -45,7 +46,9 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		this.gutterWarning = t.getColor("gutter.warning");
 		this.gutterWarningStripe = t.getColor("gutter.warningStripe");
 //		this.gutterChannelDark = t.getColor("gutter.channel.dark");
-//		this.gutterChannelLight = t.getColor("gutter.channel.light");
+		this.gutterChannelLight = t.getColor("gutter.channel.light");
+		
+		this.font = new Font(Display.getCurrent(), "Monaco", 12, 0);
 		
 		this.fontWidth = 10;
 		this.oldLineCount = 0;
@@ -71,6 +74,10 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		}
 	}
 	
+	public void setFlagAtLine(int line) {
+		flagMap.put(line,  Boolean.TRUE);
+	}
+	
 	@Override
 	public void paintObject(PaintObjectEvent event) {
 		int charWidth = Integer.toString(this.editor.getLineCount()).length();
@@ -82,8 +89,10 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		event.gc.setForeground(this.gutterForeground);
 		event.gc.setBackground(this.gutterBackground);
 		
-		Font font = style.font;
-		if (font == null) font = editor.getFont();
+//		Font font = style.font;
+//		if (font == null) font = editor.getFont();
+//		
+		
 		TextLayout layout = new TextLayout(display);
 		layout.setAscent(event.ascent);
 		layout.setDescent(event.descent);
@@ -93,6 +102,9 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		
 		// paint the background
 		event.gc.fillRectangle(event.x, event.y, event.style.metrics.width, layout.getBounds().height);
+		
+//		event.gc.setForeground(this.gutterForeg);
+		event.gc.drawLine(event.x + event.style.metrics.width, event.y - 1, event.x + event.style.metrics.width, event.y + layout.getBounds().height + 1);
 		
 		if (this.flagMap.containsKey(event.bulletIndex + 1)) {
 			// paint any status symbols

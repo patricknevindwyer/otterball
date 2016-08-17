@@ -102,6 +102,7 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		this.updateWithAnalysis(new ArrayList());
 		
 		
+		
 		// run typing on our content
 		this.typeContents();
 	}
