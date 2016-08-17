@@ -195,11 +195,22 @@ public class MenuManager {
 		Menu submenu = new Menu (editItem);
 		editItem.setMenu (submenu);
 
+		// Select
+		MenuItem select = new MenuItem(submenu, SWT.CASCADE);
+		select.setText("Select");
+		Menu selectMenu = new Menu(select);
+		select.setMenu(selectMenu);
+		
 		// Select All
-		MenuItem selectAllItem = new MenuItem (submenu, SWT.PUSH);
+		MenuItem selectAllItem = new MenuItem (selectMenu, SWT.PUSH);
 		selectAllItem.setText ("Select &All\tCtrl+A");
 		selectAllItem.setAccelerator (SWT.MOD1 + 'A');
 		selectAllItem.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectAll));
+		
+		MenuItem selectEnclosingBlock = new MenuItem(selectMenu, SWT.PUSH);
+		selectEnclosingBlock.setText("Select Enclosing &Block\tCtrl+B");
+		selectEnclosingBlock.setAccelerator(SWT.MOD1 + 'B');
+		selectEnclosingBlock.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectEnclosingBlock));
 		
 		// Reflow
 		MenuItem reflow = new MenuItem(submenu, SWT.CASCADE);

@@ -24,4 +24,34 @@ public enum ElementType {
 	public String toString() {
 		return name;
 	}
+	
+	public boolean isBlockStart() {
+		if ( ( this == OBJ_START) || (this == LIST_START) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isBlockEnd() {
+		if ( (this == OBJ_END) || (this == LIST_END) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean closes(ElementType e) {
+		
+		if ( (this == OBJ_END) && (e == OBJ_START) ) {
+			return true;
+		}
+		else if ( (this == LIST_END) && (e == LIST_START) ) {
+			return true;
+		}
+		
+		return false;
+	}
 }

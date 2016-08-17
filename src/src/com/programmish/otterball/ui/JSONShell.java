@@ -9,6 +9,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 
+import com.programmish.otterball.parsing.Block;
 import com.programmish.otterball.parsing.FingerPrintingParser;
 import com.programmish.otterball.parsing.JSONDocument;
 import com.programmish.otterball.parsing.JSONParser;
@@ -201,6 +202,14 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		else if (ce == OBEvent.ReflowExpandSelection) {
 			
 			this.expandSelectedText();
+		}
+		else if (ce == OBEvent.SelectEnclosingBlock) {
+			
+			Block enclosing = this.jsonDocument.getEnclosingBlock(this.editor.getCaretOffset());
+			
+			if (enclosing != null) {
+				this.editor.setSelection(enclosing.getCaretStart(), enclosing.getCaretEnd() + 1);
+			}
 		}
 	}
 	
