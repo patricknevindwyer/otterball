@@ -80,7 +80,9 @@ public class BraceMatcher implements CaretListener {
 	
 	@Override
 	public void caretMoved(CaretEvent e) {
-
+		
+		long st = System.currentTimeMillis();
+		
 		// setup our raw data
 		int caretPos = e.caretOffset;
 		String text = this.editor.getText();
@@ -191,12 +193,21 @@ public class BraceMatcher implements CaretListener {
 		if (lastCloseBraceOffset != -1) {
 			toggleHighlight(lastCloseBraceOffset, true);
 		}
+		
+		long ed = System.currentTimeMillis();
+		BraceMatcher.logger.debug(String.format(" - BraceMatcher::caretMoved - took %d ms", ed - st));
 	}
 	
 	private void toggleHighlight(int offset, boolean toggle) {
 		
 		// Find the current style used on the brace
-		StyleRange style = this.editor.getStyleRangeAtOffset(offset);
+		StyleRange style;
+		try {	
+			style = this.editor.getStyleRangeAtOffset(offset);
+		} catch (IllegalArgumentException iae) {
+			// we're eating this because of the possible wonky order of events
+			return;
+		}
 
 		if (style != null) {
 			
@@ -207,7 +218,16 @@ public class BraceMatcher implements CaretListener {
 			else {
 				style.borderStyle = SWT.NONE;
 			}
-			this.editor.setStyleRange(style);
+			try {
+				this.editor.setStyleRange(style);
+			}
+			catch (ArrayIndexOutOfBoundsException aioobe) {
+				// we need to eat this - the way things get called
+				// is out of order, and this match can happened when
+				// a large section of the editor has changed (say, with
+				// a format reflow).
+				BraceMatcher.logger.debug("! ate an ArrayIndexOutOfBounds exception when setting editor style");
+			}
 		}
 		else {
 			

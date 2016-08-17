@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 public class JSONParser implements FingerPrintingParser {
 	private String content;
-	
+	private static Logger logger = Logger.getLogger("otterball." + JSONParser.class.getSimpleName());
+
 	public JSONParser() {
 		this.content = "";
 	}
@@ -229,6 +232,7 @@ public class JSONParser implements FingerPrintingParser {
 	}
 	
 	public List<ParsedElement> parse(String blob) {
+		JSONParser.logger.debug(" - parser - starting whole text parse");
 		return this.parse(blob, 0);
 	}
 	
@@ -242,8 +246,12 @@ public class JSONParser implements FingerPrintingParser {
 	 * @return List<ParsedElement> parse queue
 	 */
 	public List<ParsedElement> parse(String blob, int offset) {
+		
+		JSONParser.logger.debug(String.format(" - parser - starting offset parse at %d", offset));
 		String local = blob.substring(offset);
 		local = local.replaceAll("^\\s+", "");
+		
+		long start_time = System.currentTimeMillis();
 		
 		List<ParsedElement> elements = new ArrayList<>();
 		
@@ -253,6 +261,7 @@ public class JSONParser implements FingerPrintingParser {
 		
 		// quick test for our outer marker
 		if ( !local.startsWith("{") && !local.startsWith("[")) {
+			JSONParser.logger.debug(" - parser - bailing (doesn't start as an object)");
 			return elements;
 		}
 		
@@ -334,7 +343,12 @@ public class JSONParser implements FingerPrintingParser {
 
 							// make sure we're properly delimited
 							if (!this.isDelimited(braceStack, elements.subList(0, elements.size() - 1))) {
+								JSONParser.logger.debug(String.format(" - parser - improperly delimited at pos(%d)", pos));
 								valid = false;
+								
+								// pop the last element off of our element list - it's part of the problem
+								elements.remove(elements.size() - 1);
+								
 								break;
 							}
 						}
@@ -353,6 +367,13 @@ public class JSONParser implements FingerPrintingParser {
 					
 					// do a look ahead for being a boolean
 					if (c == 't') {
+
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 4)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 4).equals("true")) {
 							
 							// make sure we're properly delimited
@@ -372,6 +393,13 @@ public class JSONParser implements FingerPrintingParser {
 					}
 					
 					if (c == 'f') {
+						
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 5)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 5).equals("false")) {
 							
 							// make sure we're properly delimited
@@ -391,6 +419,13 @@ public class JSONParser implements FingerPrintingParser {
 					
 					// check for the null string
 					if (c == 'n') {
+						
+						// check if we have enough look ahead to even try parsing further
+						if (local.length() < (pos + 4)) {
+							valid = false;
+							break;
+						}
+						
 						if (local.substring(pos, pos + 4).equals("null")) {
 							
 							// make sure we're properly delimited
@@ -480,7 +515,7 @@ public class JSONParser implements FingerPrintingParser {
 							
 							// is our stack empty? If so, we've got a match
 							if (braceStack.size() == 0) {
-								return elements;
+								break;
 							}
 						}
 						
@@ -581,12 +616,17 @@ public class JSONParser implements FingerPrintingParser {
 			}
 		}
 		
+		long end_time = System.currentTimeMillis();
+		JSONParser.logger.debug(String.format(" - parser - Parsed %d elements in %d milliseconds",  elements.size(), end_time - start_time ));
+		
 		if (valid && (braceStack.size() == 0)) {
+			JSONParser.logger.debug(" - parser - successful parse");
 			// we've parsed successfully
 			return elements;
 		}
 		else {
-			return new ArrayList<ParsedElement>();
+			JSONParser.logger.debug(String.format(" - parser - JSON parse marked as invalid. %d elements in parse tree", elements.size()));
+			return elements;
 		}
 		
 	}

@@ -172,17 +172,81 @@ public class MenuManager {
 		
 		MenuManager.logger.debug("Adding Edit menu");
 		
+		/*
+		 * Edit
+		 * 	- Copy
+		 *  - Paste
+		 *  - Select
+		 *  	All
+		 *  	Surrounding Block
+		 *  - Reflow
+		 *  	Expand All
+		 *  	Collapse All
+		 *  	--
+		 *  	Expand Selection
+		 *  	Collapse Selection
+		 *  	--
+		 *  	Toggle Expand/Collapse
+		 * 
+		 */
+
 		MenuItem editItem = new MenuItem (bar, SWT.CASCADE);
 		editItem.setText ("Edit");
 		Menu submenu = new Menu (editItem);
 		editItem.setMenu (submenu);
 
+		// Select
+		MenuItem select = new MenuItem(submenu, SWT.CASCADE);
+		select.setText("Select");
+		Menu selectMenu = new Menu(select);
+		select.setMenu(selectMenu);
+		
 		// Select All
-		MenuItem selectAllItem = new MenuItem (submenu, SWT.PUSH);
+		MenuItem selectAllItem = new MenuItem (selectMenu, SWT.PUSH);
 		selectAllItem.setText ("Select &All\tCtrl+A");
 		selectAllItem.setAccelerator (SWT.MOD1 + 'A');
 		selectAllItem.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectAll));
-
+		
+		MenuItem selectEnclosingBlock = new MenuItem(selectMenu, SWT.PUSH);
+		selectEnclosingBlock.setText("Select Enclosing &Block\tCtrl+B");
+		selectEnclosingBlock.setAccelerator(SWT.MOD1 + 'B');
+		selectEnclosingBlock.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectEnclosingBlock));
+		
+		// Reflow
+		MenuItem reflow = new MenuItem(submenu, SWT.CASCADE);
+		reflow.setText("Reflow");
+		Menu reflowMenu = new Menu(reflow);
+		reflow.setMenu(reflowMenu);
+		
+		MenuItem rmExpandAll = new MenuItem(reflowMenu, SWT.PUSH);
+		rmExpandAll.setText("Expand All");
+		rmExpandAll.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowExpandAll));
+		
+		MenuItem rmCollapseAll = new MenuItem(reflowMenu, SWT.PUSH);
+		rmCollapseAll.setText("Compact All");
+		rmCollapseAll.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowCollapseAll));
+		
+		MenuItem rmCSSeparator = new MenuItem(reflowMenu, SWT.SEPARATOR);
+		
+		MenuItem rmExpandSelection = new MenuItem(reflowMenu, SWT.PUSH);
+		rmExpandSelection.setText("Expand Selection");
+		rmExpandSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowExpandSelection));
+		
+		MenuItem rmCollapseSelection = new MenuItem(reflowMenu, SWT.PUSH);
+		rmCollapseSelection.setText("Compact Selection");
+		rmCollapseSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ReflowCollapseSelection));
+		
+		MenuItem rmSTSeparator = new MenuItem(reflowMenu, SWT.SEPARATOR);
+		
+		MenuItem toggleCollapse = new MenuItem(reflowMenu, SWT.PUSH);
+		toggleCollapse.setText("Toggle &Expand/Compact\tCtrl+E");
+		toggleCollapse.setAccelerator(SWT.MOD1 + 'E');
+		toggleCollapse.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleCollapse));
+		
+		
+		
+		
+		
 	}
 	
 	/**

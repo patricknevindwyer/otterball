@@ -2,3 +2,4 @@
 src/bin/
 bin
 release
+src/hs_err_pid*

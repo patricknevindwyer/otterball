@@ -47,6 +47,32 @@ public class JSONParser_Test {
 	}
 	
 	@Test
+	public void testLookaheadBoundary() {
+		// lookaheads for literal values can go past the end of the string
+		// boundary, leading to a parse exception
+		
+		
+		String lookaheads[] = {"[true, f", "{\"boo\": nu", "[false, tr", "[false, t", "[false, tru"};
+		
+		for (String lookahead: lookaheads) {
+			JSONParser jp = new JSONParser();
+			List<ParsedElement> elements = jp.parse(lookahead);
+			assertTrue(String.format("lookahead <%s> doesn't crash the parser", lookahead),elements.size() == 3);
+		}
+		
+		JSONParser jp = new JSONParser();
+		List<ParsedElement> elements = jp.parse("{\"foo\": true");
+		assertTrue("Barewords are parsed at the right lookahead length", elements.size() == 4);
+		
+		elements = jp.parse("{\"foo\": false");
+		assertTrue("Barewords are parsed at the right lookahead length", elements.size() == 4);
+		
+		elements = jp.parse("[1, 2, 3, nul");
+		assertTrue("Barewords are parsed at the right lookahead length", elements.size() == 7);
+	}
+	
+	
+	@Test
 	public void testParse() {
 		
 		JSONParser jp = new JSONParser();
@@ -65,7 +91,7 @@ public class JSONParser_Test {
 		
 		// we need to make sure this is validating...
 		elements = jp.parse("{\"a\": [1 : , ,]}");
-		assertTrue(elements.size() == 0);
+		assertTrue("Lists validate delimiters - and return partial parses", elements.size() == 5);
 		
 		// let's try a mixed list
 		elements = jp.parse("[1, 2.0, -3.14, \"hello\", \"[not, a, real, list]\", true, false, {}]");
@@ -73,37 +99,47 @@ public class JSONParser_Test {
 		
 		// make sure lists have delimiters
 		elements = jp.parse("[1 2 3]");
-		assertTrue("Lists need delimiters", elements.size() == 0);
+		assertTrue("Lists need delimiters - and return partial parses", elements.size() == 2);
 		
 		// can't start a list with a delimiter
 		elements = jp.parse("[, 2, 3]");
-		assertTrue("Lists can't start with delimiters", elements.size() == 0);
+		assertTrue("Lists can't start with delimiters - return partial parse", elements.size() == 1);
 		
 		// can't end a list with a delimiter
 		elements = jp.parse("[1, 2, 3, ]");
-		assertTrue("Lists can't end with delimiters", elements.size() == 0);
+		assertTrue("Lists can't end with delimiters - partial parses", elements.size() == 7);
 		
 		// make sure objects have separators
 		elements = jp.parse("{\"a\" 3}");
-		assertTrue("Objects need separators", elements.size() == 0);
+		assertTrue("Objects need separators - partial parses", elements.size() == 2);
 		
-		// make sure objects have delimiters
+		// make sure objects have delimiters - 
+		//		numeric should be the last value 
 		elements = jp.parse("{\"a\": 1 \"b\": 2}");
-		assertTrue("Objects need delimiters", elements.size() == 0);
+		assertTrue("Objects need delimiters - partial parses", elements.size() == 4);
+		
+		// 		true should be the last value
+		elements = jp.parse("{\"a\": true \"b\": 2}");
+		assertTrue("Objects need delimiters - partial parses", elements.size() == 4);
+		
+		// 		string "apple" should be the last value
+		elements = jp.parse("{\"a\": \"apple\" \"b\": 2}");
+		assertTrue("Objects need delimiters - partial parses", elements.size() == 4);
+
 		
 		// objects can't end with delimiters or separators
 		elements = jp.parse("{\"a\":}");
-		assertTrue("Objects can't end with separators", elements.size() == 0);
+		assertTrue("Objects can't end with separators - partial parses", elements.size() == 3);
 		
 		elements = jp.parse("{\"a\": 1,}");
-		assertTrue("Objects can't end with delimiters", elements.size() == 0);
+		assertTrue("Objects can't end with delimiters - partial parsing", elements.size() == 5);
 		
 		// objects can't start with delimiters or separators
 		elements = jp.parse("{: 2}");
-		assertTrue("Objects can't start with separators", elements.size() == 0);
+		assertTrue("Objects can't start with separators - partial parse", elements.size() == 1);
 		
 		elements = jp.parse("{, \"a\": 3}");
-		assertTrue("Objects can't start with delimiters", elements.size() == 0);
+		assertTrue("Objects can't start with delimiters - partial parse", elements.size() == 1);
 				
 	}
 	
