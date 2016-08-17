@@ -75,20 +75,27 @@
   - [x] brackets {} 
   - [x] brackets [] 
 - [x] /Reflow selection
-- [ ] Indent/Outdent
 - [x] Fix reflow of lists
 - [x] Condense/compact
-- [ ] To/from base64
-- [ ] excise field
-- [ ] insert field
 - [x] Edit menu
   - [x] Expand
   - [x] Compact
 - [ ] Detect changes to underlying file
 - [x] Ability to select next containing block (select my surroundings)
 - [x] Reflow only selection
+
+# Quick UI Update #1
+
+- [ ] word wrap
+- [ ] smaller gutter numbers
+- [ ] select line
+  - [ ] goto
+  - [ ] select
+- [ ] maybe a thin line between gutter and text area?
+- [ ] Indent/Outdent
 - [ ] Copy/Paste in menu
 - [ ] Add version string on startup
+
 
 # Easy Edit - Multiple Object
 
@@ -117,6 +124,9 @@
 - [ ] Cardinality
 - [ ] Type adherence
 - [ ] Stream analysis
+- [ ] To/from base64
+- [ ] excise field
+- [ ] insert field
 
 # Validation
 
@@ -170,18 +180,15 @@
 
 # Uncategorized
 
+
 - use java NIO streams to truly stream data?
 - better timing/tracing of performance during parse cycle
 - restarting parser when encountering errors
 - add an error type or a skipped type to the ElementType
-- word wrap
 - key bindings (VIM style or EMACS style)
 - alternative themes
 - filter/clear debug terminal
-- smaller gutter numbers
 - status bar ala - TextMate
-- select line
-- maybe a thin line between gutter and text area?
 - informational header area as well as footer?
 - JSONPath in header?
 - What about a title bar icon with DND like a native mac app?
@@ -193,8 +200,6 @@
   - key bindings
 - make all of the helpers optional in pref system
 - lines
-  - goto
-  - select
   - extract to new doc
   - compare
 - long section eliding, i.e. replace a long string with "..."
