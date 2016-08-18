@@ -3,12 +3,19 @@ package com.programmish.otterball.ui;
 public enum OBEvent {
 
 	BraceJump,
-	SelectAll,
-	SelectEnclosingBlock,
-	ToggleCollapse,
+	GotoLine,
+	IndentLine,
+	IndentSelection,
+	OutdentLine,
+	OutdentSelection,
 	ReflowExpandAll,
 	ReflowCollapseAll,
 	ReflowExpandSelection,
-	ReflowCollapseSelection
+	ReflowCollapseSelection,
+	SelectAll,
+	SelectEnclosingBlock,
+	SelectLine,
+	ToggleCollapse,
+	ToggleWordWrap
 	
 }

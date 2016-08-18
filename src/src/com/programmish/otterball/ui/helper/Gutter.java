@@ -31,10 +31,12 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 	private Color gutterWarning;
 	private Color gutterWarningStripe;
 //	private Color gutterChannelDark;
-//	private Color gutterChannelLight;
+	private Color gutterChannelLight;
 	private int fontWidth;
 	private int flagWidth;
 	private Map<Integer, Boolean> flagMap;
+	private Font font;
+	private int width = 0;
 	
 	public Gutter (StyledText editor) {
 	
@@ -45,7 +47,9 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		this.gutterWarning = t.getColor("gutter.warning");
 		this.gutterWarningStripe = t.getColor("gutter.warningStripe");
 //		this.gutterChannelDark = t.getColor("gutter.channel.dark");
-//		this.gutterChannelLight = t.getColor("gutter.channel.light");
+		this.gutterChannelLight = t.getColor("gutter.channel.light");
+		
+		this.font = new Font(Display.getCurrent(), "Monaco", 12, 0);
 		
 		this.fontWidth = 10;
 		this.oldLineCount = 0;
@@ -59,7 +63,11 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		this.updateGutter();
 		
 	}
-
+	
+	public int getWidth() {
+		return this.width;
+	}
+	
 	public void setGutterFlags(List<SourceAnalysis> analysis) {
 	
 		// clear the old flags
@@ -69,6 +77,10 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 			// we keep the line numbering starting at 1
 			flagMap.put(a.getLineNumber(), Boolean.TRUE);
 		}
+	}
+	
+	public void setFlagAtLine(int line) {
+		flagMap.put(line,  Boolean.TRUE);
 	}
 	
 	@Override
@@ -82,8 +94,10 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		event.gc.setForeground(this.gutterForeground);
 		event.gc.setBackground(this.gutterBackground);
 		
-		Font font = style.font;
-		if (font == null) font = editor.getFont();
+//		Font font = style.font;
+//		if (font == null) font = editor.getFont();
+//		
+		
 		TextLayout layout = new TextLayout(display);
 		layout.setAscent(event.ascent);
 		layout.setDescent(event.descent);
@@ -93,6 +107,9 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		
 		// paint the background
 		event.gc.fillRectangle(event.x, event.y, event.style.metrics.width, layout.getBounds().height);
+		
+//		event.gc.setForeground(this.gutterForeg);
+		event.gc.drawLine(event.x + event.style.metrics.width, event.y - 1, event.x + event.style.metrics.width, event.y + layout.getBounds().height + 1);
 		
 		if (this.flagMap.containsKey(event.bulletIndex + 1)) {
 			// paint any status symbols
@@ -149,6 +166,11 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 			int charWidth = this.editor.getLineCount();
 			StyleRange sr = new StyleRange();
 			sr.metrics = new GlyphMetrics(0, 0, Integer.toString(charWidth).length() * this.fontWidth + (flagWidth / 2 * 3));
+			
+			// we need this width later
+			this.width = sr.metrics.width;
+			this.editor.setWrapIndent(this.width + 20);
+			
 			Bullet b = new Bullet(ST.BULLET_CUSTOM, sr);
 
 			this.editor.setLineBullet(0, this.editor.getLineCount(), null);

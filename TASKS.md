@@ -86,16 +86,18 @@
 
 # Quick UI Update #1
 
-- [ ] word wrap
-- [ ] smaller gutter numbers
-- [ ] select line
-  - [ ] goto
-  - [ ] select
-- [ ] maybe a thin line between gutter and text area?
-- [ ] Indent/Outdent
-- [ ] Copy/Paste in menu
-- [ ] Add version string on startup
+- [x] word wrap
+- [-] smaller gutter numbers
+- [x] select line
+  - [x] select
+- [x] maybe a thin line between gutter and text area?
+- [x] Indent/Outdent
+- [x] Add version string on startup
+- [-] top margin/padding
 
+# TODO SOON
+
+- [ ] Need a way to mark the text area as "in progress", that way we can tell the parsers and highlighters to hold off for a transactional set of edits
 
 # Easy Edit - Multiple Object
 
@@ -135,6 +137,7 @@
 - [ ] Invalid values validator (geojson, topojson)
 - [ ] Unnecessarily quoted types (int, bool)
 - [ ] Duplicate keys
+- [ ] Add continuous integration hooks on GitHub
 
 # Performance
 
@@ -144,6 +147,9 @@
 
 # Future
 
+- [ ] goto line
+- [ ] Copy/Paste in menu
+- [ ] undo/redo in menu
 - [ ] Reopen documents at start
 - [ ] Save unsaved documents in temp
 - [ ] Save as
@@ -177,6 +183,8 @@
 - [ ] Block select from EOF crashes
 - [ ] Block select => reflow => select => reflow crashes and mangles the document
 - [ ] square brackets add a newline when reflowing when they don't contain any elements. they shouldn't do this, they should act like curly brackets.
+- [ ] select all + delete crashes
+- [x] word wrap size needs to update when the gutter size changes
 
 # Uncategorized
 

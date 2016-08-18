@@ -179,6 +179,7 @@ public class MenuManager {
 		 *  - Select
 		 *  	All
 		 *  	Surrounding Block
+		 *      Line
 		 *  - Reflow
 		 *  	Expand All
 		 *  	Collapse All
@@ -187,7 +188,14 @@ public class MenuManager {
 		 *  	Collapse Selection
 		 *  	--
 		 *  	Toggle Expand/Collapse
-		 * 
+		 * - Goto
+		 *      Line
+		 * - Insert
+		 * 		Indent Line
+		 * 		Outdent Line
+		 * 		--
+		 * 		Indent Selected Lines
+		 * 		Outdent Selected Lines
 		 */
 
 		MenuItem editItem = new MenuItem (bar, SWT.CASCADE);
@@ -211,6 +219,11 @@ public class MenuManager {
 		selectEnclosingBlock.setText("Select Enclosing &Block\tCtrl+B");
 		selectEnclosingBlock.setAccelerator(SWT.MOD1 + 'B');
 		selectEnclosingBlock.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectEnclosingBlock));
+		
+		MenuItem selectLine = new MenuItem(selectMenu, SWT.PUSH);
+		selectLine.setText("Select &Line\tCtrl+l");
+		selectLine.setAccelerator(SWT.MOD1 + 'L');
+		selectLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.SelectLine));
 		
 		// Reflow
 		MenuItem reflow = new MenuItem(submenu, SWT.CASCADE);
@@ -243,9 +256,55 @@ public class MenuManager {
 		toggleCollapse.setAccelerator(SWT.MOD1 + 'E');
 		toggleCollapse.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleCollapse));
 		
+		// Goto
+		MenuItem gotoMenu = new MenuItem(submenu, SWT.CASCADE);
+		gotoMenu.setText("Goto");
+		Menu gotoSubmenu = new Menu(gotoMenu);
+		gotoMenu.setMenu(gotoSubmenu);
 		
+		MenuItem gotoLine = new MenuItem(gotoSubmenu, SWT.PUSH);
+		gotoLine.setText("&Goto Line\tCtrl+G");
+		gotoLine.setAccelerator(SWT.MOD1 + 'G');
+		gotoLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.GotoLine));
 		
+		// Insert
+		MenuItem insertMenu = new MenuItem(submenu, SWT.CASCADE);
+		insertMenu.setText("Insert");
+		Menu insertSubmenu = new Menu(insertMenu);
+		insertMenu.setMenu(insertSubmenu);
 		
+		// Indent Line
+		MenuItem indentLine = new MenuItem(insertSubmenu, SWT.PUSH);
+		indentLine.setText("Indent Line\tCTRL+SHIFT+}");
+		indentLine.setAccelerator(SWT.MOD1 + SWT.SHIFT + '}');
+		indentLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.IndentLine));
+				
+		// Outdent Line
+		MenuItem outdentLine = new MenuItem(insertSubmenu, SWT.PUSH);
+		outdentLine.setText("Outdent Line\tCTRL+SHIFT+{");
+		outdentLine.setAccelerator(SWT.MOD1 + SWT.SHIFT + '{');
+		outdentLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.OutdentLine));
+		
+		MenuItem imLSSeparator = new MenuItem(insertSubmenu, SWT.SEPARATOR);
+
+		// Indent Selection
+		MenuItem indentSelection = new MenuItem(insertSubmenu, SWT.PUSH);
+		indentSelection.setText("Indent Selection\tCTRL+]");
+		indentSelection.setAccelerator(SWT.MOD1 + ']');
+		indentSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.IndentSelection));
+		
+		// Outdent Selection
+		MenuItem outdentSelection = new MenuItem(insertSubmenu, SWT.PUSH);
+		outdentSelection.setText("Outdent Selection\tCTRL+[");
+		outdentSelection.setAccelerator(SWT.MOD1 + '[');
+		outdentSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.OutdentSelection));
+		
+		MenuItem editSeparator = new MenuItem(submenu, SWT.SEPARATOR);
+		
+		// Toggle word wrap
+		MenuItem toggleWordWarp = new MenuItem(submenu, SWT.PUSH);
+		toggleWordWarp.setText("Toggle Word Wrap");
+		toggleWordWarp.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleWordWrap));
 		
 	}
 	
