@@ -145,7 +145,7 @@ public abstract class OBEditor implements OBWindow, ModifyListener {
 		editor.setSelectionBackground(theme.getColor("selection.background"));
 		
 		// Font and Typography/text layout
-		Font editorFont = new Font(Display.getCurrent(), "Monaco", 12, 0); 
+		Font editorFont = new Font(Display.getCurrent(), "Menlo", 12, 0); 
 		editor.setFont(editorFont);
 		editor.setIndent(10);
 		

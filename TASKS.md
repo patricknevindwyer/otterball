@@ -93,7 +93,7 @@
 - [x] maybe a thin line between gutter and text area?
 - [x] Indent/Outdent
 - [x] Add version string on startup
-- [ ] top margin/padding
+- [-] top margin/padding
 
 # TODO SOON
 

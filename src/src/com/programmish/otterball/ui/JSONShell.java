@@ -99,6 +99,7 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		this.fingerPrinters.add(new JSONParser());
 		this.fingerPrinters.add(new SingleQuoteParser());
 		this.fingerPrinters.add(new PythonUnicodeParser());
+		
 	}
 	
 	protected void postOpen() {
