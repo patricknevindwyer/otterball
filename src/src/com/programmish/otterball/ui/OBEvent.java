@@ -15,6 +15,7 @@ public enum OBEvent {
 	SelectAll,
 	SelectEnclosingBlock,
 	SelectLine,
-	ToggleCollapse
+	ToggleCollapse,
+	ToggleWordWrap
 	
 }

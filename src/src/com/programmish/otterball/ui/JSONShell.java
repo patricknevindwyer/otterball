@@ -280,6 +280,10 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			this.editor.setSelection(select_start_idx, select_end_idx);
 			
 		}
+		else if (ce == OBEvent.ToggleWordWrap) {
+			this.editor.setWrapIndent(this.editorGutter.getWidth() + 20);
+			this.editor.setWordWrap(!this.editor.getWordWrap());
+		}
 		
 	}
 	

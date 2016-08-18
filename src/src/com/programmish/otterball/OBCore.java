@@ -25,6 +25,8 @@ import com.programmish.otterball.ui.MenuManager;
 import com.programmish.otterball.sys.DeepFilePointer;
 
 public class OBCore {
+	
+	protected static String version = "001 - 2016.08.17T21:34";
 
 	// We keep a static reference to the windows so we can cleanly reference the open
 	// shells throughout OtterBall, without passing around a ref to OBCore
@@ -44,7 +46,7 @@ public class OBCore {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		logger.info("Starting OBCore");
+		logger.info(String.format("Starting OBCore (Version %s)", OBCore.version));
 		
 		try {
 			OBCore core = new OBCore();
@@ -254,6 +256,8 @@ public class OBCore {
 		// construct the application menus
 		MenuManager mm = MenuManager.getManager();
 		mm.constructMenus();
+		
+		OBCore.logger.info(String.format("Starting OBCore (Version %s)", OBCore.version));
 		
 		// do some logging!
 		OBCore.logger.info("Entering message dispatch");

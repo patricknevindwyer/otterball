@@ -299,6 +299,12 @@ public class MenuManager {
 		outdentSelection.setAccelerator(SWT.MOD1 + '[');
 		outdentSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.OutdentSelection));
 		
+		MenuItem editSeparator = new MenuItem(submenu, SWT.SEPARATOR);
+		
+		// Toggle word wrap
+		MenuItem toggleWordWarp = new MenuItem(submenu, SWT.PUSH);
+		toggleWordWarp.setText("Toggle Word Wrap");
+		toggleWordWarp.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.ToggleWordWrap));
 		
 	}
 	

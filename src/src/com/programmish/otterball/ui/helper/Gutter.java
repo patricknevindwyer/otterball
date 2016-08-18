@@ -36,6 +36,7 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 	private int flagWidth;
 	private Map<Integer, Boolean> flagMap;
 	private Font font;
+	private int width = 0;
 	
 	public Gutter (StyledText editor) {
 	
@@ -62,7 +63,11 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 		this.updateGutter();
 		
 	}
-
+	
+	public int getWidth() {
+		return this.width;
+	}
+	
 	public void setGutterFlags(List<SourceAnalysis> analysis) {
 	
 		// clear the old flags
@@ -161,6 +166,11 @@ public class Gutter implements ModifyListener, PaintObjectListener {
 			int charWidth = this.editor.getLineCount();
 			StyleRange sr = new StyleRange();
 			sr.metrics = new GlyphMetrics(0, 0, Integer.toString(charWidth).length() * this.fontWidth + (flagWidth / 2 * 3));
+			
+			// we need this width later
+			this.width = sr.metrics.width;
+			this.editor.setWrapIndent(this.width + 20);
+			
 			Bullet b = new Bullet(ST.BULLET_CUSTOM, sr);
 
 			this.editor.setLineBullet(0, this.editor.getLineCount(), null);
