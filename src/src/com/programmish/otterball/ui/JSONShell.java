@@ -245,34 +245,37 @@ public class JSONShell extends OBEditor implements ModifyListener {
 			
 			Point p = this.editor.getSelection();
 			int select_start_idx = p.x;
-			int select_end_idx = p.y + p.x;
+			int select_end_idx = p.y;
 			
 			int first_line = this.editor.getLineAtOffset(select_start_idx);
 			int last_line = this.editor.getLineAtOffset(select_end_idx);
+
+			JSONShell.logger.info(String.format(" - OutdentSelection - selection(%d, %d) covers lines [%d, %d]", select_start_idx, select_end_idx, first_line, last_line));
 			
 			for (int i = first_line; i <= last_line; i++) {
 				this.addLineIndent(i);
 			}
 			
 			select_start_idx = this.editor.getOffsetAtLine(first_line);
-			select_end_idx = this.editor.getOffsetAtLine(last_line);
+			select_end_idx = this.editor.getOffsetAtLine(last_line) + this.editor.getLine(last_line).length();
 			
 			this.editor.setSelection(select_start_idx, select_end_idx);
 		}
 		else if (ce == OBEvent.OutdentSelection) {
 			Point p = this.editor.getSelection();
 			int select_start_idx = p.x;
-			int select_end_idx = p.y + p.x;
+			int select_end_idx = p.y - 1;
 			
 			int first_line = this.editor.getLineAtOffset(select_start_idx);
 			int last_line = this.editor.getLineAtOffset(select_end_idx);
 			
+			JSONShell.logger.info(String.format(" - OutdentSelection - selection(%d, %d) covers lines [%d, %d]", select_start_idx, select_end_idx, first_line, last_line));
 			for (int i = first_line; i <= last_line; i++) {
 				this.removeLineIndent(i);
 			}
 			
 			select_start_idx = this.editor.getOffsetAtLine(first_line);
-			select_end_idx = this.editor.getOffsetAtLine(last_line);
+			select_end_idx = this.editor.getOffsetAtLine(last_line) + this.editor.getLine(last_line).length();
 			
 			this.editor.setSelection(select_start_idx, select_end_idx);
 			
