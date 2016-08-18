@@ -92,7 +92,7 @@
   - [ ] goto
   - [x] select
 - [x] maybe a thin line between gutter and text area?
-- [ ] Indent/Outdent
+- [x] Indent/Outdent
 - [ ] Copy/Paste in menu
 - [ ] Add version string on startup
 
@@ -178,6 +178,7 @@
 - [ ] Block select from EOF crashes
 - [ ] Block select => reflow => select => reflow crashes and mangles the document
 - [ ] square brackets add a newline when reflowing when they don't contain any elements. they shouldn't do this, they should act like curly brackets.
+- [ ] select all + delete crashes
 
 # Uncategorized
 

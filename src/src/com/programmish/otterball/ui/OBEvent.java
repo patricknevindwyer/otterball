@@ -4,6 +4,10 @@ public enum OBEvent {
 
 	BraceJump,
 	GotoLine,
+	IndentLine,
+	IndentSelection,
+	OutdentLine,
+	OutdentSelection,
 	ReflowExpandAll,
 	ReflowCollapseAll,
 	ReflowExpandSelection,

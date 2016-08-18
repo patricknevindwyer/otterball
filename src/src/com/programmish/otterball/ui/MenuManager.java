@@ -190,7 +190,12 @@ public class MenuManager {
 		 *  	Toggle Expand/Collapse
 		 * - Goto
 		 *      Line
-		 *      
+		 * - Insert
+		 * 		Indent Line
+		 * 		Outdent Line
+		 * 		--
+		 * 		Indent Selected Lines
+		 * 		Outdent Selected Lines
 		 */
 
 		MenuItem editItem = new MenuItem (bar, SWT.CASCADE);
@@ -262,6 +267,37 @@ public class MenuManager {
 		gotoLine.setAccelerator(SWT.MOD1 + 'G');
 		gotoLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.GotoLine));
 		
+		// Insert
+		MenuItem insertMenu = new MenuItem(submenu, SWT.CASCADE);
+		insertMenu.setText("Insert");
+		Menu insertSubmenu = new Menu(insertMenu);
+		insertMenu.setMenu(insertSubmenu);
+		
+		// Indent Line
+		MenuItem indentLine = new MenuItem(insertSubmenu, SWT.PUSH);
+		indentLine.setText("Indent Line\tCTRL+SHIFT+}");
+		indentLine.setAccelerator(SWT.MOD1 + SWT.SHIFT + '}');
+		indentLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.IndentLine));
+				
+		// Outdent Line
+		MenuItem outdentLine = new MenuItem(insertSubmenu, SWT.PUSH);
+		outdentLine.setText("Outdent Line\tCTRL+SHIFT+{");
+		outdentLine.setAccelerator(SWT.MOD1 + SWT.SHIFT + '{');
+		outdentLine.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.OutdentLine));
+		
+		MenuItem imLSSeparator = new MenuItem(insertSubmenu, SWT.SEPARATOR);
+
+		// Indent Selection
+		MenuItem indentSelection = new MenuItem(insertSubmenu, SWT.PUSH);
+		indentSelection.setText("Indent Selection\tCTRL+]");
+		indentSelection.setAccelerator(SWT.MOD1 + ']');
+		indentSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.IndentSelection));
+		
+		// Outdent Selection
+		MenuItem outdentSelection = new MenuItem(insertSubmenu, SWT.PUSH);
+		outdentSelection.setText("Outdent Selection\tCTRL+[");
+		outdentSelection.setAccelerator(SWT.MOD1 + '[');
+		outdentSelection.addListener(SWT.Selection, new OBEventDispatcher(OBEvent.OutdentSelection));
 		
 		
 	}

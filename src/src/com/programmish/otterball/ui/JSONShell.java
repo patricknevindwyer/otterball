@@ -2,6 +2,8 @@ package com.programmish.otterball.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.eclipse.swt.events.ModifyEvent;
@@ -38,6 +40,8 @@ public class JSONShell extends OBEditor implements ModifyListener {
 	private PairInsert pairInserter;
 	private AutoIndenter autoIndenter;
 	//private BraceMatcher braceMatcher;
+	
+	private String indent = "    ";
 	
 	// parsers
 	private List<FingerPrintingParser> fingerPrinters;
@@ -220,6 +224,97 @@ public class JSONShell extends OBEditor implements ModifyListener {
 		}
 		else if (ce == OBEvent.GotoLine) {
 			// TODO: Wait... how do we want to actually do this...
+		}
+		else if (ce == OBEvent.IndentLine) {
+			
+			// get the offset at the start of our line
+			int line = this.editor.getLineAtOffset(this.editor.getCaretOffset());
+			
+			// insert an indent at the start of our line
+			this.addLineIndent(line);
+			this.editor.setCaretOffset(this.editor.getOffsetAtLine(line));
+			
+		}
+		else if (ce == OBEvent.OutdentLine) {
+			int line = this.editor.getLineAtOffset(this.editor.getCaretOffset());
+			
+			this.removeLineIndent(line);
+			this.editor.setCaretOffset(this.editor.getOffsetAtLine(line));
+		}
+		else if (ce == OBEvent.IndentSelection) {
+			
+			Point p = this.editor.getSelection();
+			int select_start_idx = p.x;
+			int select_end_idx = p.y + p.x;
+			
+			int first_line = this.editor.getLineAtOffset(select_start_idx);
+			int last_line = this.editor.getLineAtOffset(select_end_idx);
+			
+			for (int i = first_line; i <= last_line; i++) {
+				this.addLineIndent(i);
+			}
+			
+			select_start_idx = this.editor.getOffsetAtLine(first_line);
+			select_end_idx = this.editor.getOffsetAtLine(last_line);
+			
+			this.editor.setSelection(select_start_idx, select_end_idx);
+		}
+		else if (ce == OBEvent.OutdentSelection) {
+			Point p = this.editor.getSelection();
+			int select_start_idx = p.x;
+			int select_end_idx = p.y + p.x;
+			
+			int first_line = this.editor.getLineAtOffset(select_start_idx);
+			int last_line = this.editor.getLineAtOffset(select_end_idx);
+			
+			for (int i = first_line; i <= last_line; i++) {
+				this.removeLineIndent(i);
+			}
+			
+			select_start_idx = this.editor.getOffsetAtLine(first_line);
+			select_end_idx = this.editor.getOffsetAtLine(last_line);
+			
+			this.editor.setSelection(select_start_idx, select_end_idx);
+			
+		}
+		
+	}
+	
+	/**
+	 * Add an indent to the specified line
+	 * 
+	 * @param line
+	 */
+	protected void addLineIndent(int line) {
+			
+		int line_start = this.editor.getOffsetAtLine(line);
+		
+		this.editor.replaceTextRange(line_start, 0, this.indent);
+	}
+	
+	protected void removeLineIndent(int line_idx) {
+		
+		int line_start = this.editor.getOffsetAtLine(line_idx);
+		
+		String line = this.editor.getLine(line_idx);
+		
+		if (line.startsWith("\t")) {
+			// remove it
+			this.editor.replaceTextRange(line_start, 1, "");
+		}
+		else if (line.matches("^\\s{1,3}.*")) {
+			// remove leading spaces
+			Pattern p = Pattern.compile("^(\\s{1,3}).*");
+			Matcher m = p.matcher(line);
+			
+			if (m.lookingAt()) {
+				String match = m.group(1);
+				this.editor.replaceTextRange(line_start, match.length(), "");
+			}
+		}
+		else if (line.startsWith(this.indent)) {
+			// remove the indent
+			this.editor.replaceTextRange(line_start, this.indent.length(), "");
 		}
 	}
 	
